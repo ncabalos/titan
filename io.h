@@ -16,15 +16,19 @@ typedef enum {
     IO_TYPE_COUNT
 } io_device_type;
 
+typedef void (* write_func)(const uint8_t * data, uint16_t size);
+typedef void (* read_func)(uint8_t * data, uint16_t size);
+
 typedef struct IO_DEVICE_S {
     uint16_t id;
     uint16_t type;
-    uint8_t * out_stream;
-    uint8_t * in_stream;
+    write_func write;
+    read_func read;
 } IO_DEVICE;
 
+
 void io_write(IO_DEVICE * device, const uint8_t * data, uint16_t size);
-void io_read(IO_DEVICE * device, uint8_t * buffer, uint16_t size);
+void io_read(IO_DEVICE * device, uint8_t * data, uint16_t size);
 
 #endif	/* IO_H */
 
