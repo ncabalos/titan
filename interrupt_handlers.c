@@ -52,9 +52,8 @@ void __attribute__((__interrupt__, auto_psv )) _ISR _T2Interrupt (void)
 
 void __attribute__((__interrupt__, auto_psv )) _ISR _U1TXInterrupt (void)
 {
-    bool result;
     IFS0bits.U1TXIF = 0;
-    uart_tx_callback(0,NULL,0);
+    uart_tx_callback(0, 0, 0);
 }
 
 void __attribute__((__interrupt__, auto_psv )) _ISR _U1RXInterrupt (void)
