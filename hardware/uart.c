@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include "io.h"
-#include "queue.h"
+#include "../queue.h"
 
 #define UART_BUFFER_SIZE 32
 #define UART_COUNT 4

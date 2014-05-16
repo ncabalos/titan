@@ -5,7 +5,7 @@
 #include "p24Fxxxx.h"
 
 #include "queue.h"
-#include "uckernel.h"
+#include "uckernel/uckernel.h"
 
 enum {
     TASK_EVENT_1,
