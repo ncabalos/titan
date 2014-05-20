@@ -1,27 +1,14 @@
 #include <p24Fxxxx.h>
 #include <stdint.h>
 #include <stddef.h>
+#include <stdbool.h>
 #include "io.h"
 #include "../queue.h"
+#include "uart.h"
 
-#define UART_BUFFER_SIZE 32
-#define UART_COUNT 4
+static UART_MODULE modules[UART_COUNT];
 
-static void uart_init(uint16_t module_number, uint16_t baud_rate);
-static void uart_start_tx(uint16_t module_number);
-
-struct UART_MODULE {
-    bool in_use;
-    uint16_t baud_rate;
-    uint8_t tx_buffer_data[UART_BUFFER_SIZE];
-    uint8_t rx_buffer_data[UART_BUFFER_SIZE];
-    struct queue tx_buffer;
-    struct queue rx_buffer;
-};
-
-static struct UART_MODULE modules[UART_COUNT];
-
-static bool get_uart_module(struct UART_MODULE * module, uint16_t id)
+static bool get_uart_module(UART_MODULE * module, uint16_t id)
 {
     if(id >= UART_COUNT) {
         return false;
@@ -31,9 +18,9 @@ static bool get_uart_module(struct UART_MODULE * module, uint16_t id)
     return true;
 }
 
-struct UART_MODULE * uart_register(uint16_t module_number, uint16_t baud_rate)
+UART_MODULE * uart_init(uint16_t module_number, uint16_t baud_rate)
 {
-    struct UART_MODULE * module = NULL;
+    UART_MODULE * module = NULL;
     bool result;
     result = get_uart_module(module, module_number);
 
@@ -48,12 +35,12 @@ struct UART_MODULE * uart_register(uint16_t module_number, uint16_t baud_rate)
     queue_register(&module->rx_buffer, module->rx_buffer_data, UART_BUFFER_SIZE,
                    sizeof(uint8_t));
     /* TODO: initialize UART hardware */
-    uart_init(module_number, baud_rate);
+    /* uart_init(module_number, baud_rate); */
     return module;
 }
 bool uart_write(uint16_t module_number, uint8_t * data, uint16_t len)
 {
-    struct UART_MODULE * module = NULL;
+    UART_MODULE * module = NULL;
     bool result;
     result = get_uart_module(module, module_number);
 
@@ -78,7 +65,7 @@ bool uart_write(uint16_t module_number, uint8_t * data, uint16_t len)
 }
 bool uart_read(uint16_t module_number, uint8_t * data, uint16_t len)
 {
-    struct UART_MODULE * module = NULL;
+    UART_MODULE * module = NULL;
     bool result;
     result = get_uart_module(module, module_number);
 
@@ -103,7 +90,7 @@ bool uart_read(uint16_t module_number, uint8_t * data, uint16_t len)
 
 bool uart_tx_callback(uint16_t module_number, uint8_t * data, uint16_t len)
 {
-    struct UART_MODULE * module = NULL;
+    UART_MODULE * module = NULL;
     bool result;
     result = get_uart_module(module, module_number);
 
@@ -128,7 +115,7 @@ bool uart_tx_callback(uint16_t module_number, uint8_t * data, uint16_t len)
 
 bool uart_rx_callback(uint16_t module_number, uint8_t * data, uint16_t len)
 {
-    struct UART_MODULE * module = NULL;
+    UART_MODULE * module = NULL;
     bool result;
     result = get_uart_module(module, module_number);
 
@@ -156,14 +143,13 @@ void uart_init(uint16_t module_number, uint16_t baud_rate)
     switch(module_number) {
         case 0:
             break;
-
         case 1:
             break;
-
         case 2:
             break;
-
         case 3:
+            break;
+        default:
             break;
     }
 }
@@ -185,6 +171,8 @@ void uart_start_tx(uint16_t module_number)
 
         case 3:
             IFS5bits.U4TXIF = 1;
+            break;
+        default:
             break;
     }
 }
