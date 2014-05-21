@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 #include "p24Fxxxx.h"
+#include "hardware_config.h"
 
 #include "queue.h"
 #include "uckernel/uckernel.h"
@@ -37,6 +38,7 @@ static void task2(const uint16_t event, void * data)
 int main(void)
 {
     /* Initialize hardware */
+    init_hardware_pins();
     T1CONbits.TON = 1;
     IEC0bits.T1IE = 1;
     /* uckernel Initialize */

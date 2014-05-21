@@ -1,5 +1,5 @@
 #include <p24Fxxxx.h>
-#include <stdlib.h>
+#include <string.h>
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>

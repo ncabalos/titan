@@ -3,18 +3,10 @@
 #include <stdint.h>
 
 #include <p24Fxxxx.h>
+#include "../hardware_config.h"
 
 #define SERVO_CHANNEL_COUNT 8
 #define SERVO_MAX_VALUE 1000
-
-#define SERVO_CHANNEL_PIN_0 LATEbits.LATE0
-#define SERVO_CHANNEL_PIN_1 LATEbits.LATE1
-#define SERVO_CHANNEL_PIN_2 LATEbits.LATE2
-#define SERVO_CHANNEL_PIN_3 LATEbits.LATE3
-#define SERVO_CHANNEL_PIN_4 LATEbits.LATE4
-#define SERVO_CHANNEL_PIN_5 LATEbits.LATE5
-#define SERVO_CHANNEL_PIN_6 LATEbits.LATE6
-#define SERVO_CHANNEL_PIN_7 LATEbits.LATE7
 
 enum {
     SERVO_STATE_START,
@@ -83,35 +75,35 @@ void update_pin(bool state)
 {
     switch(servo_channel) {
         case 0:
-            SERVO_CHANNEL_PIN_0 = state;
+            SERVO_0 = state;
             break;
 
         case 1:
-            SERVO_CHANNEL_PIN_1 = state;
+            SERVO_1 = state;
             break;
 
         case 2:
-            SERVO_CHANNEL_PIN_2 = state;
+            SERVO_2 = state;
             break;
 
         case 3:
-            SERVO_CHANNEL_PIN_3 = state;
+            SERVO_3 = state;
             break;
 
         case 4:
-            SERVO_CHANNEL_PIN_4 = state;
+            SERVO_4 = state;
             break;
 
         case 5:
-            SERVO_CHANNEL_PIN_5 = state;
+            SERVO_5 = state;
             break;
 
         case 6:
-            SERVO_CHANNEL_PIN_6 = state;
+            SERVO_6 = state;
             break;
 
         case 7:
-            SERVO_CHANNEL_PIN_7 = state;
+            SERVO_7 = state;
             break;
     }
 }
