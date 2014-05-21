@@ -81,13 +81,72 @@
 }
 
 #define SERVO_0 LATEbits.LATE0
+#define init_SERVO_0()      \
+{                           \
+    TRISEbits.TRISE0 = 0;   \
+    LATEbits.LATE0 = 0;     \
+}
+
 #define SERVO_1 LATEbits.LATE1
+#define init_SERVO_1()      \
+{                           \
+    TRISEbits.TRISE1 = 0;   \
+    LATEbits.LATE1 = 0;     \
+}
+
 #define SERVO_2 LATEbits.LATE2
+#define init_SERVO_2()      \
+{                           \
+    TRISEbits.TRISE2 = 0;   \
+    LATEbits.LATE2 = 0;     \
+}
+
 #define SERVO_3 LATEbits.LATE3
+#define init_SERVO_3()      \
+{                           \
+    TRISEbits.TRISE3 = 0;   \
+    LATEbits.LATE3 = 0;     \
+}
+
 #define SERVO_4 LATEbits.LATE4
+#define init_SERVO_4()      \
+{                           \
+    TRISEbits.TRISE4 = 0;   \
+    LATEbits.LATE4 = 0;     \
+}
+
 #define SERVO_5 LATEbits.LATE5
+#define init_SERVO_5()      \
+{                           \
+    TRISEbits.TRISE5 = 0;   \
+    LATEbits.LATE5 = 0;     \
+}
+
 #define SERVO_6 LATEbits.LATE6
+#define init_SERVO_6()      \
+{                           \
+    TRISEbits.TRISE6 = 0;   \
+    LATEbits.LATE6 = 0;     \
+}
+
 #define SERVO_7 LATEbits.LATE7
+#define init_SERVO_7()      \
+{                           \
+    TRISEbits.TRISE7 = 0;   \
+    LATEbits.LATE7 = 0;     \
+}
+
+#define init_Servos()       \
+{                           \
+    init_SERVO_0()          \
+    init_SERVO_1()          \
+    init_SERVO_2()          \
+    init_SERVO_3()          \
+    init_SERVO_4()          \
+    init_SERVO_5()          \
+    init_SERVO_6()          \
+    init_SERVO_7()          \
+}
 
 #define SW_0 LATGbits.LATG6
 #define SW_1 LATGbits.LATG7
