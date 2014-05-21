@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   uart.h
  * Author: ncabalos
  *
@@ -22,14 +22,14 @@ typedef struct UART_MODULE_S {
     uint8_t rx_buffer_data[UART_BUFFER_SIZE];
     struct queue tx_buffer;
     struct queue rx_buffer;
-}UART_MODULE;
+} UART_MODULE;
 
 UART_MODULE * uart_init(uint16_t module_number, uint16_t baud_rate);
-bool uart_write(uint16_t module_number, uint8_t * data, uint16_t len);
-bool uart_read(uint16_t module_number, uint8_t * data, uint16_t len);
-void uart_start_tx(uint16_t module_number);
-
-
+bool uart_write(UART_MODULE * uart, uint8_t * data, uint16_t len);
+bool uart_read(UART_MODULE * uart, uint8_t * data, uint16_t len);
+void uart_reset_tx_buffer(UART_MODULE * uart);
+void uart_reset_rx_buffer(UART_MODULE * uart);
+void uart_reset_all_buffer(UART_MODULE * uart);
 
 #ifdef	__cplusplus
 }
