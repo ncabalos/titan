@@ -15,57 +15,57 @@
 #define LED_0 LATGbits.LATG0
 #define init_LED_0()        \
 {                           \
-    LATGbits.LATG0 = 0;     \
     TRISGbits.TRISG0 = 0;   \
+    LATGbits.LATG0 = 0;     \
 }
 
 #define LED_1 LATGbits.LATG1
 #define init_LED_1()        \
 {                           \
-    LATGbits.LATG1 = 0;     \
     TRISGbits.TRISG1 = 0;   \
+    LATGbits.LATG1 = 0;     \
 }
 
 #define LED_2 LATFbits.LATF1
 #define init_LED_2()        \
 {                           \
-    LATFbits.LATF1 = 0;     \
     TRISFbits.TRISF1 = 0;   \
+    LATFbits.LATF1 = 0;     \
 }
 
 #define LED_3 LATFbits.LATF0
 #define init_LED_3()        \
 {                           \
-    LATFbits.LATF0 = 0;     \
     TRISFbits.TRISF0 = 0;   \
+    LATFbits.LATF0 = 0;     \
 }
 
 #define LED_4 LATDbits.LATD7
 #define init_LED_4()        \
 {                           \
-    LATDbits.LATD7 = 0;     \
     TRISDbits.TRISD7 = 0;   \
+    LATDbits.LATD7 = 0;     \
 }
 
 #define LED_5 LATDbits.LATD6
 #define init_LED_5()        \
 {                           \
-    LATDbits.LATD6 = 0;     \
     TRISDbits.TRISD6 = 0;   \
+    LATDbits.LATD6 = 0;     \
 }
 
 #define LED_6 LATDbits.LATD5
 #define init_LED_6()        \
 {                           \
-    LATDbits.LATD5 = 0;     \
     TRISDbits.TRISD5 = 0;   \
+    LATDbits.LATD5 = 0;     \
 }
 
 #define LED_7 LATDbits.LATD11
 #define init_LED_7()        \
 {                           \
-    LATDbits.LATD11 = 0;    \
     TRISDbits.TRISD11 = 0;  \
+    LATDbits.LATD11 = 0;    \
 }
 
 #define init_LEDs()         \
@@ -148,12 +148,51 @@
     init_SERVO_7()          \
 }
 
-#define SW_0 LATGbits.LATG6
-#define SW_1 LATGbits.LATG7
-#define SW_2 LATGbits.LATG8
-#define SW_3 LATGbits.LATG9
-#define SW_4 LATEbits.LATE8
-#define SW_5 LATEbits.LATE9
+#define SW_0 PORTGbits.RG6
+#define init_SW_0()         \
+{                           \
+    TRISGbits.TRISG6 = 1;   \
+}
+
+#define SW_1 PORTGbits.RG7
+#define init_SW_1()         \
+{                           \
+    TRISGbits.TRISG7 = 1;   \
+}
+
+#define SW_2 PORTGbits.RG8
+#define init_SW_2()         \
+{                           \
+    TRISGbits.TRISG8 = 1;   \
+}
+
+#define SW_3 PORTGbits.RG9
+#define init_SW_3()         \
+{                           \
+    TRISGbits.TRISG9 = 1;   \
+}
+
+#define SW_4 PORTEbits.RE8
+#define init_SW_4()         \
+{                           \
+    TRISEbits.TRISE8 = 1;   \
+}
+
+#define SW_5 PORTEbits.RE9
+#define init_SW_5()         \
+{                           \
+    TRISEbits.TRISE9 = 1;   \
+}
+
+#define init_SW()           \
+{                           \
+    init_SW_0();            \
+    init_SW_1();            \
+    init_SW_2();            \
+    init_SW_3();            \
+    init_SW_4();            \
+    init_SW_5();            \
+}
 
 #define BT_FACTORYDEFAULT
 #define BT_STATUS_1
@@ -163,9 +202,47 @@
 #define GPS_STATUS
 #define GPS_RESET
 
+#define init_ANALOG_BATT_MONITOR()  \
+{                                   \
+    TRISBbits.TRISB2 = 1;           \
+}
+
+#define init_ANALOG_DIST_0()        \
+{                                   \
+    TRISBbits.TRISB9 = 1;           \
+}
+
+#define init_ANALOG_DIST_1()        \
+{                                   \
+    TRISBbits.TRISB10 = 1;          \
+}
+
+#define init_ANALOG_DIST_2()        \
+{                                   \
+    TRISBbits.TRISB11 = 1;          \
+}
+
+#define init_ANALOG_DIST_3()        \
+{                                   \
+    TRISBbits.TRISB12 = 1;          \
+}
+
+#define init_ANALOG_STEER_SENSE()   \
+{                                   \
+    TRISBbits.TRISB13 = 1;          \
+}
+
 #define init_hardware_pins()    \
 {                               \
     init_LEDs()                 \
+    init_SW()                   \
+    init_Servos()               \
+    init_ANALOG_BATT_MONITOR()  \
+    init_ANALOG_STEER_SENSE()   \
+    init_ANALOG_DIST_0()        \
+    init_ANALOG_DIST_1()        \
+    init_ANALOG_DIST_2()        \
+    init_ANALOG_DIST_3()        \
 }
 
 #ifdef	__cplusplus
