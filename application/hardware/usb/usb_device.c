@@ -15,38 +15,6 @@
    Provides basic USB device functionality, including enumeration and USB
    chapter 9 required behavior.
 *******************************************************************************/
-
-/* DOM-IGNORE-BEGIN */
-/*******************************************************************************
-Copyright (c) 2013 released Microchip Technology Inc.  All rights reserved.
-
-Microchip licenses to you the right to use, modify, copy and distribute
-Software only when embedded on a Microchip microcontroller or digital signal
-controller that is integrated into your product or third party product
-(pursuant to the sublicense terms in the accompanying license agreement).
-
-You should refer to the license agreement accompanying this Software for
-additional information regarding your rights and obligations.
-
-SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
-EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
-MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.
-IN NO EVENT SHALL MICROCHIP OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER
-CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR
-OTHER LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
-INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
-CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
-SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
-(INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
-*******************************************************************************/
-/* DOM-IGNORE-END */
-
-
-/****************************************************************************** */
-/****************************************************************************** */
-/* Section: Included Files */
-/****************************************************************************** */
-/****************************************************************************** */
 #include <stdint.h>
 #include <stddef.h>
 
@@ -62,15 +30,12 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "usb/usb_device_msd.h"
 #endif
 
-/****************************************************************************** */
-/****************************************************************************** */
-/* Section: File Scope or Global Constants */
-/****************************************************************************** */
-/****************************************************************************** */
 #if !defined(USE_USB_BUS_SENSE_IO)
-/* Assume the +5V VBUS is always present (like it would be in a bus powered */
-/* only application), unless USE_USB_BUS_SENSE_IO and USB_BUS_SENSE have */
-/* been properly defined elsewhere in the project. */
+/* 
+Assume the +5V VBUS is always present (like it would be in a bus powered only 
+application), unless USE_USB_BUS_SENSE_IO and USB_BUS_SENSE have been properly 
+defined elsewhere in the project. 
+*/
 #undef USB_BUS_SENSE
 #define USB_BUS_SENSE 1
 #endif
@@ -82,30 +47,31 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #endif
 
 #if !defined(self_power)
-/* Assume the application is always bus powered, unless self_power has been */
-/* defined elsewhere in the project */
+/* 
+Assume the application is always bus powered, unless self_power has been defined 
+elsewhere in the project 
+*/
 #define self_power 0    /* 0 = bus powered */
 #endif
 
 #if !defined(USB_MAX_NUM_CONFIG_DSC)
-/* Assume the application only implements one configuration descriptor, */
-/* unless otherwise specified elsewhere in the project */
+/* 
+Assume the application only implements one configuration descriptor, unless 
+otherwise specified elsewhere in the project 
+*/
 #define USB_MAX_NUM_CONFIG_DSC      1
 #endif
 
 #if defined(__XC8)
-/* Suppress expected/harmless compiler warning message about unused RAM variables. */
-/* Certain variables are not used if you don't use all of the USB stack APIs. */
-/* These variables should not be removed (since they are still used/needed in */
-/* some applications). */
+/* 
+Suppress expected/harmless compiler warning message about unused RAM variables. 
+Certain variables are not used if you don't use all of the USB stack APIs. These 
+variables should not be removed (since they are still used/needed in some 
+applications). 
+*/
 #pragma warning disable 1090
 #endif
 
-/****************************************************************************** */
-/****************************************************************************** */
-/* Section: File Scope Data Types */
-/****************************************************************************** */
-/****************************************************************************** */
 typedef union {
     uint8_t Val;
     struct __PACKED {
@@ -120,11 +86,6 @@ typedef union {
     } bits;
 } uint8_t_VAL, uint8_t_BITS;
 
-/****************************************************************************** */
-/****************************************************************************** */
-/* Section: Variables */
-/****************************************************************************** */
-/****************************************************************************** */
 USB_VOLATILE USB_DEVICE_STATE USBDeviceState;
 USB_VOLATILE uint8_t USBActiveConfiguration;
 USB_VOLATILE uint8_t USBAlternateInterface[USB_MAX_NUM_INT];
@@ -168,13 +129,17 @@ volatile uint8_t CtrlTrfData[USB_EP0_BUFF_SIZE] CTRL_TRF_DATA_ADDR_TAG;
  * non-EP0 Buffer Space
  *******************************************************************/
 #if defined(USB_USE_MSD)
-/* Check if the MSD application specific USB endpoint buffer placement address */
-/* macros have already been defined or not (ex: in a processor specific header) */
-/* The msd_cbw and msd_csw buffers must be USB module accessible (and therefore */
-/* must be at a certain address range on certain microcontrollers). */
+/* 
+Check if the MSD application specific USB endpoint buffer placement address 
+macros have already been defined or not (ex: in a processor specific header)
+The msd_cbw and msd_csw buffers must be USB module accessible (and therefore
+must be at a certain address range on certain microcontrollers). 
+*/
 #if !defined(MSD_CBW_ADDR_TAG)
-/* Not previously defined.  Assume in this case all microcontroller RAM is */
-/* USB module accessible, and therefore, no specific address tag value is needed. */
+/* 
+Not previously defined.  Assume in this case all microcontroller RAM is USB 
+module accessible, and therefore, no specific address tag value is needed. 
+*/
 #define MSD_CBW_ADDR_TAG
 #define MSD_CSW_ADDR_TAG
 #endif
@@ -207,12 +172,7 @@ USB_USER_CONFIG_DESCRIPTOR_INCLUDE;
 
 extern const uint8_t * const USB_SD_Ptr[];
 
-
-/****************************************************************************** */
-/****************************************************************************** */
 /* Section: Private and External Prototypes */
-/****************************************************************************** */
-/****************************************************************************** */
 extern bool USER_USB_CALLBACK_EVENT_HANDLER(USB_EVENT event, void * pdata,
         uint16_t size);
 
@@ -233,12 +193,7 @@ static void USBWakeFromSuspend(void);
 static void USBSuspend(void);
 static void USBStallHandler(void);
 
-/****************************************************************************** */
-/****************************************************************************** */
 /* Section: Macros or Functions */
-/****************************************************************************** */
-/****************************************************************************** */
-
 /****************************************************************************
   Function:
     void USBAdvancePingPongBuffer(BDT_ENTRY** buffer)
@@ -331,8 +286,10 @@ void USBDeviceInit(void)
         outPipes[0].wCount.Val = 0;
     }
 
-    /* Set flags to true, so the USBCtrlEPAllowStatusStage() function knows not to */
-    /* try and arm a status stage, even before the first control transfer starts. */
+    /* 
+    Set flags to true, so the USBCtrlEPAllowStatusStage() function knows not to 
+    try and arm a status stage, even before the first control transfer starts. 
+    */
     USBStatusStageEnabledFlag1 = true;
     USBStatusStageEnabledFlag2 = true;
     /* Initialize other flags */
@@ -423,18 +380,18 @@ void USBDeviceInit(void)
         USBDeviceInit();
         while(1)
         {
-            USBDeviceTasks(); /* Takes care of enumeration and other USB events */
+            USBDeviceTasks(); \* Takes care of enumeration and other USB events *\
             if((USBGetDeviceState() \< CONFIGURED_STATE) ||
                (USBIsDeviceSuspended() == true))
             {
-                /* Either the device is not configured or we are suspended, */
-                /* so we don't want to execute any USB related application code */
-                continue;   /* go back to the top of the while loop */
+                \* Either the device is not configured or we are suspended, *\
+                \* so we don't want to execute any USB related application code *\
+                continue;   \* go back to the top of the while loop *\
             }
             else
             {
-                /* Otherwise we are free to run USB and non-USB related user */
-                /* application code. */
+                \* Otherwise we are free to run USB and non-USB related user *\
+                \* application code. *\
                 UserApplication();
             }
         }
@@ -872,18 +829,18 @@ void USBEnableEndpoint(uint8_t ep, uint8_t options)
 
     Typical Usage
     <code>
-    /* make sure that the we are in the configured state */
+    \* make sure that the we are in the configured state *\
     if(USBGetDeviceState() == CONFIGURED_STATE)
     {
-        /* make sure that the last transaction isn't busy by checking the handle */
+        \* make sure that the last transaction isn't busy by checking the handle *\
         if(!USBHandleBusy(USBInHandle))
         {
-	        /* Write the new data that we wish to send to the host to the INPacket[] array */
+	        \* Write the new data that we wish to send to the host to the INPacket[] array *\
 	        INPacket[0] = USEFUL_APPLICATION_VALUE1;
 	        INPacket[1] = USEFUL_APPLICATION_VALUE2;
-	        /* INPacket[2] = ... (fill in the rest of the packet data) */
+	        \* INPacket[2] = ... (fill in the rest of the packet data) *\
 
-            /* Send the data contained in the INPacket[] array through endpoint "EP_NUM" */
+            \* Send the data contained in the INPacket[] array through endpoint "EP_NUM" *\
             USBInHandle = USBTransferOnePacket(EP_NUM,IN_TO_HOST,(uint8_t*)&INPacket[0],sizeof(INPacket));
         }
     }
@@ -1061,9 +1018,13 @@ void USBCancelIO(uint8_t endpoint)
         /* The PKTDIS bit is currently set right now.  It is therefore "safe" */
         /* to mess with the BDT right now. */
         pBDTEntryIn[endpoint]->Val &=
-            _DTSMASK;	/* Makes UOWN = 0 (_UCPU mode).  Deactivates endpoint.  Only sends NAKs. */
+            _DTSMASK;	/* Makes UOWN = 0 (_UCPU mode).  Deactivates endpoint.  
+                            Only sends NAKs. */
         pBDTEntryIn[endpoint]->Val ^=
-            _DTSMASK;	/* Toggle the DTS bit.  This packet didn't get sent yet, and the next call to USBTransferOnePacket() will re-toggle the DTS bit back to the original (correct) value. */
+            _DTSMASK;	/* Toggle the DTS bit.  This packet didn't get sent yet, 
+                            and the next call to USBTransferOnePacket() will 
+                            re-toggle the DTS bit back to the original (correct) 
+                            value. */
         /* Need to do additional handling if ping-pong buffering is being used */
 #if ((USB_PING_PONG_MODE == USB_PING_PONG__FULL_PING_PONG) || (USB_PING_PONG_MODE == USB_PING_PONG__ALL_BUT_EP0))
         /* Point to the next buffer for ping pong purposes.  UOWN getting cleared */
