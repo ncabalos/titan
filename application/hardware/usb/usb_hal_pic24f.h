@@ -255,24 +255,14 @@ typedef union _POINTER {
     struct {
         uint8_t bLow;
         uint8_t bHigh;
-        /* byte bUpper; */
     };
-    uint16_t _word;                         /* bLow & bHigh */
-
-    /* pFunc _pFunc;                       /* Usage: ptr.pFunc(); Init: ptr.pFunc = &<Function>; */ */
-
-    uint8_t * bRam;                        /* Ram byte pointer: 2 bytes pointer pointing */
-    /* to 1 byte of data */
-    uint16_t *
-    wRam;                        /* Ram word poitner: 2 bytes poitner pointing */
-    /* to 2 bytes of data */
-
-    const uint8_t * bRom;                    /* Size depends on compiler setting */
+    uint16_t _word;             /* bLow & bHigh */
+    uint8_t * bRam;             /* Ram byte pointer: 2 bytes pointer pointing */
+                                /* to 1 byte of data */
+    uint16_t * wRam;            /* Ram word poitner: 2 bytes poitner pointing */
+                                /* to 2 bytes of data */
+    const uint8_t * bRom;       /* Size depends on compiler setting */
     const uint16_t * wRom;
-    /* rom near byte* nbRom;               /* Near = 2 bytes pointer */ */
-    /* rom near word* nwRom; */
-    /* rom far byte* fbRom;                /* Far = 3 bytes pointer */ */
-    /* rom far word* fwRom; */
 } POINTER;
 
 /*****************************************************************************/

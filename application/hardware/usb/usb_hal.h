@@ -52,8 +52,8 @@
 #define USB_HAL_HANDSHAKE   0x0100  /* Enable EP to give ACK/NACK (non isoch) */
 
 /* Does not work, Fix this if needed. 3/1/07 - Bud
-#define USB_HAL_NO_INC      0x0010  /* Use for DMA to another device FIFO */
-#define USB_HAL_HW_KEEPS    0x0020  /* Cause HW to keep EP */
+#define USB_HAL_NO_INC      0x0010  \* Use for DMA to another device FIFO *\
+#define USB_HAL_HW_KEEPS    0x0020  \* Cause HW to keep EP *\
 */
 #define USB_HAL_ALLOW_HUB   0x8000  /* (host only) Enable low-spd hub support */
 #define USB_HAL_NO_RETRY    0x4000  /* (host only) disable auto-retry on NACK */

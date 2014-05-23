@@ -133,8 +133,8 @@ extern void USB_DEVICE_HID_IDLE_RATE_CALLBACK(uint8_t reportId,
         <code>
         void USBCBCheckOtherReq(void)
         {
-            /* Since the stack didn't handle the request I need to check */
-            /*  my class drivers to see if it is for them */
+            \* Since the stack didn't handle the request I need to check *\
+            \*  my class drivers to see if it is for them *\
             USBCheckHIDRequest();
         }
         </code>
@@ -260,11 +260,11 @@ void USBCheckHIDRequest(void)
 
         Typical Usage:
         <code>
-        /* make sure that the last transfer isn't busy by checking the handle */
+        \* make sure that the last transfer isn't busy by checking the handle *\
         if(!HIDTxHandleBusy(USBInHandle))
         {
-            /* Send the data contained in the ToSendDataBuffer[] array out on */
-            /*  endpoint HID_EP */
+            \* Send the data contained in the ToSendDataBuffer[] array out on *\
+            \*  endpoint HID_EP *\
             USBInHandle = HIDTxPacket(HID_EP,(uint8_t*)&ToSendDataBuffer[0],sizeof(ToSendDataBuffer));
         }
         </code>
@@ -299,9 +299,9 @@ void USBCheckHIDRequest(void)
 
         Typical Usage:
         <code>
-        /* Read 64-uint8_ts from endpoint HID_EP, into the ReceivedDataBuffer array. */
-        /*  Make sure to save the return handle so that we can check it later */
-        /*  to determine when the transfer is complete. */
+        \* Read 64-uint8_ts from endpoint HID_EP, into the ReceivedDataBuffer array. *\
+        \*  Make sure to save the return handle so that we can check it later *\
+        \*  to determine when the transfer is complete. *\
         USBOutHandle = HIDRxPacket(HID_EP,(uint8_t*)&ReceivedDataBuffer,64);
         </code>
 

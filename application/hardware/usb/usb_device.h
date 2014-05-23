@@ -113,28 +113,28 @@ typedef enum {
     /* to what to do if this request is received. (device) */
     EVENT_EP0_REQUEST,
 
-/*    /* A USB transfer has completed.  The data associated with this event is of */ */
-/*    /* the data type HOST_TRANSFER_DATA if the event is generated from the host */ */
-/*    /* stack. */ */
+/*    \* A USB transfer has completed.  The data associated with this event is of *\ */
+/*    \* the data type HOST_TRANSFER_DATA if the event is generated from the host *\ */
+/*    \* stack. *\ */
 /*    EVENT_TRANSFER, */
 /**/
-/*    /* A USB Start of Frame token has been received.  This event is not */ */
-/*    /* used by the Host stack. */ */
+/*    \* A USB Start of Frame token has been received.  This event is not *\ */
+/*    \* used by the Host stack. *\ */
 /*    EVENT_SOF, */
 /**/
-/*    /* Device-mode resume received.  This event is not used by the Host stack. */ */
+/*    \* Device-mode resume received.  This event is not used by the Host stack. *\ */
 /*    EVENT_RESUME, */
 /**/
-/*    /* Device-mode suspend/idle event received.  This event is not used by the */ */
-/*    /* Host stack. */ */
+/*    \* Device-mode suspend/idle event received.  This event is not used by the *\ */
+/*    \* Host stack. *\ */
 /*    EVENT_SUSPEND, */
 /**/
-/*    /* Device-mode bus reset received.  This event is not used by the Host */ */
-/*    /* stack. */ */
+/*    \* Device-mode bus reset received.  This event is not used by the Host *\ */
+/*    \* stack. *\ */
 /*    EVENT_RESET, */
 
-/*    /* Device Mode: A setup packet received (data: SETUP_PKT).  This event is */ */
-/*    /* not used by the Host stack. */ */
+/*    \* Device Mode: A setup packet received (data: SETUP_PKT).  This event is *\ */
+/*    \* not used by the Host stack. *\ */
 /*    EVENT_SETUP, */
 
     /* Device-mode USB cable has been attached.  This event is not used by the */
@@ -240,18 +240,18 @@ void USBDeviceInit(void);
         USBDeviceInit();
         while(1)
         {
-            USBDeviceTasks(); /* Takes care of enumeration and other USB events */
+            USBDeviceTasks(); \* Takes care of enumeration and other USB events *\
             if((USBGetDeviceState() \< CONFIGURED_STATE) ||
                (USBIsDeviceSuspended() == true))
             {
-                /* Either the device is not configured or we are suspended, */
-                /* so we don't want to execute any USB related application code */
-                continue;   /* go back to the top of the while loop */
+                \* Either the device is not configured or we are suspended, *\
+                \* so we don't want to execute any USB related application code *\
+                continue;   \* go back to the top of the while loop *\
             }
             else
             {
-                /* Otherwise we are free to run USB and non-USB related user */
-                /* application code. */
+                \* Otherwise we are free to run USB and non-USB related user *\
+                \* application code. *\
                 UserApplication();
             }
         }
@@ -370,18 +370,18 @@ void USBEnableEndpoint(uint8_t ep, uint8_t options);
 
     Typical Usage
     <code>
-    /* make sure that the we are in the configured state */
+    \* make sure that the we are in the configured state *\
     if(USBGetDeviceState() == CONFIGURED_STATE)
     {
-        /* make sure that the last transaction isn't busy by checking the handle */
+        \* make sure that the last transaction isn't busy by checking the handle *\
         if(!USBHandleBusy(USBInHandle))
         {
-	        /* Write the new data that we wish to send to the host to the INPacket[] array */
+	        \* Write the new data that we wish to send to the host to the INPacket[] array *\
 	        INPacket[0] = USEFUL_APPLICATION_VALUE1;
 	        INPacket[1] = USEFUL_APPLICATION_VALUE2;
-	        /* INPacket[2] = ... (fill in the rest of the packet data) */
+	        \* INPacket[2] = ... (fill in the rest of the packet data) *\
 
-            /* Send the data contained in the INPacket[] array through endpoint "EP_NUM" */
+            \* Send the data contained in the INPacket[] array through endpoint "EP_NUM" *\
             USBInHandle = USBTransferOnePacket(EP_NUM,IN_TO_HOST,(uint8_t*)&INPacket[0],sizeof(INPacket));
         }
     }
@@ -1064,16 +1064,16 @@ bool USBINDataStageDeferred(void);
 
     <code lang="c">
     const uint8_t configDescriptor1[]={
-        0x09,                           /* Size */
-        USB_DESCRIPTOR_CONFIGURATION,   /* descriptor type */
-        DESC_CONFIG_WORD(0x0022),       /* Total length */
-        1,                              /* Number of interfaces */
-        1,                              /* Index value of this cfg */
-        0,                              /* Configuration string index */
-        _DEFAULT | _SELF | _RWU,        /* Attributes, see usb_device.h */
-        50,                             /* Max power consumption in 2X mA(100mA) */
+        0x09,                           \* Size *\
+        USB_DESCRIPTOR_CONFIGURATION,   \* descriptor type *\
+        DESC_CONFIG_WORD(0x0022),       \* Total length *\
+        1,                              \* Number of interfaces *\
+        1,                              \* Index value of this cfg *\
+        0,                              \* Configuration string index *\
+        _DEFAULT | _SELF | _RWU,        \* Attributes, see usb_device.h *\
+        50,                             \* Max power consumption in 2X mA(100mA) *\
 
-        /* The rest of the configuration descriptor should follow */
+        \* The rest of the configuration descriptor should follow *\
     </code>
 
     For more information about remote wakeup, see the following section of
@@ -1131,13 +1131,13 @@ bool USBGetRemoteWakeupStatus(void);
             if((USBGetDeviceState() \< CONFIGURED_STATE) ||
                (USBIsDeviceSuspended() == true))
             {
-                /* Either the device is not configured or we are suspended */
-                /*  so we don't want to do execute any application code */
-                continue;   /* go back to the top of the while loop */
+                \* Either the device is not configured or we are suspended *\
+                \*  so we don't want to do execute any application code *\
+                continue;   \* go back to the top of the while loop *\
             }
             else
             {
-                /* Otherwise we are free to run user application code. */
+                \* Otherwise we are free to run user application code. *\
                 UserApplication();
             }
         }
@@ -1187,13 +1187,13 @@ USB_DEVICE_STATE USBGetDeviceState(void);
                if((USBGetDeviceState() \< CONFIGURED_STATE) ||
                   (USBGetSuspendState() == true))
                {
-                   /* Either the device is not configured or we are suspended */
-                   /*  so we don't want to do execute any application code */
-                   continue;   /* go back to the top of the while loop */
+                   \* Either the device is not configured or we are suspended *\
+                   \*  so we don't want to do execute any application code *\
+                   continue;   \* go back to the top of the while loop *\
                }
                else
                {
-                   /* Otherwise we are free to run user application code. */
+                   \* Otherwise we are free to run user application code. *\
                    UserApplication();
                }
            }
@@ -1230,7 +1230,7 @@ bool USBGetSuspendState(void);
     {
         return;
     }
-    /* otherwise do some application specific tasks */
+    \* otherwise do some application specific tasks *\
     </code>
 
   Conditions:
@@ -1264,13 +1264,13 @@ bool USBIsDeviceSuspended(void);
     <code>
     if((USBIsBusSuspended() == true) && (USBGetRemoteWakeupStatus() == true))
     {
-        /* Check if some stimulus occured, which will be used as the wakeup source */
+        \* Check if some stimulus occured, which will be used as the wakeup source *\
         if(sw3 == 0)
         {
-            USBCBSendResume();  /* Send the remote wakeup signalling to the host */
+            USBCBSendResume();  \* Send the remote wakeup signalling to the host *\
         }
     }
-    /* otherwise do some other application specific tasks */
+    \* otherwise do some other application specific tasks *\
     </code>
 
   Conditions:
@@ -1329,11 +1329,11 @@ void USBSoftDetach(void);
 
     Typical Usage
     <code>
-    /* make sure that the last transfer isn't busy by checking the handle */
+    \* make sure that the last transfer isn't busy by checking the handle *\
     if(!USBHandleBusy(USBGenericInHandle))
     {
-        /* Send the data contained in the INPacket[] array out on */
-        /*  endpoint USBGEN_EP_NUM */
+        \* Send the data contained in the INPacket[] array out on *\
+        \*  endpoint USBGEN_EP_NUM *\
         USBGenericInHandle = USBGenWrite(USBGEN_EP_NUM,(uint8_t*)&INPacket[0],sizeof(INPacket));
     }
     </code>
@@ -1459,19 +1459,19 @@ uint16_t USBHandleGetAddr(USB_HANDLE);
         uint8_t UserDataBuffer2[64];
         uint8_t* pDataBuffer = &UserDataBuffer1[0];
 
-        /* Add some code that loads UserDataBuffer1[] with useful data to send, */
-        /* using the pDataBuffer pointer, for example: */
-        /* for(i = 0; i < 64; i++) */
-        /* { */
-        /*  *pDataBuffer++ = [useful data value]; */
-        /* } */
+        \* Add some code that loads UserDataBuffer1[] with useful data to send, *\
+        \* using the pDataBuffer pointer, for example: *\
+        \* for(i = 0; i < 64; i++) *\
+        \* { *\
+        \*  *pDataBuffer++ = [useful data value]; *\
+        \* } *\
 
-        /* Check if the next USB endpoint BDT is available */
+        \* Check if the next USB endpoint BDT is available *\
         if(!USBHandleBusy(USBGetNextHandle(ep_num, IN_TO_HOST))
         {
-            /* The endpoint is available.  Send the data. */
+            \* The endpoint is available.  Send the data. *\
             *pHandle = USBTransferOnePacket(ep_num, ep_dir, pDataBuffer, bytecount);
-            /* Toggle the handle and buffer pointer for the next transaction */
+            \* Toggle the handle and buffer pointer for the next transaction *\
             if(pHandle == &Handle1)
             {
                 pHandle = &Handle2;
@@ -1484,23 +1484,23 @@ uint16_t USBHandleGetAddr(USB_HANDLE);
             }
         }
 
-        /* The firmware can then load the next data buffer (in this case */
-        /* UserDataBuffer2)with useful data, and send it using the same */
-        /* process.  For example: */
+        \* The firmware can then load the next data buffer (in this case *\
+        \* UserDataBuffer2)with useful data, and send it using the same *\
+        \* process.  For example: *\
 
-        /* Add some code that loads UserDataBuffer2[] with useful data to send, */
-        /* using the pDataBuffer pointer, for example: */
-        /* for(i = 0; i < 64; i++) */
-        /* { */
-        /*  *pDataBuffer++ = [useful data value]; */
-        /* } */
+        \* Add some code that loads UserDataBuffer2[] with useful data to send, *\
+        \* using the pDataBuffer pointer, for example: *\
+        \* for(i = 0; i < 64; i++) *\
+        \* { *\
+        \*  *pDataBuffer++ = [useful data value]; *\
+        \* } *\
 
-        /* Check if the next USB endpoint BDT is available */
+        \* Check if the next USB endpoint BDT is available *\
         if(!USBHandleBusy(USBGetNextHandle(ep_num, IN_TO_HOST))
         {
-            /* The endpoint is available.  Send the data. */
+            \* The endpoint is available.  Send the data. *\
             *pHandle = USBTransferOnePacket(ep_num, ep_dir, pDataBuffer, bytecount);
-            /* Toggle the handle and buffer pointer for the next transaction */
+            \* Toggle the handle and buffer pointer for the next transaction *\
             if(pHandle == &Handle1)
             {
                 pHandle = &Handle2;
@@ -1753,9 +1753,9 @@ bool USB_APPLICATION_EVENT_HANDLER(uint8_t address, USB_EVENT event,
     Typical Usage:
     <code>
         const uint8_t configDescriptor1[]={
-            0x09,                           /* Size of this descriptor in bytes */
-            USB_DESCRIPTOR_CONFIGURATION,   /* CONFIGURATION descriptor type */
-            DESC_CONFIG_WORD(0x0022),       /* Total length of data for this cfg */
+            0x09,                           \* Size of this descriptor in bytes *\
+            USB_DESCRIPTOR_CONFIGURATION,   \* CONFIGURATION descriptor type *\
+            DESC_CONFIG_WORD(0x0022),       \* Total length of data for this cfg *\
     </code>
 */
 #define DESC_CONFIG_WORD(a) (a&0xFF),((a>>8)&0xFF)

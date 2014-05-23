@@ -2132,20 +2132,6 @@ static void USBWakeFromSuspend(void)
     /* mode. */
 #endif
     USBActivityIE = 0;
-    /********************************************************************
-    Bug Fix: Feb 26, 2007 v2.1
-    *********************************************************************
-    The ACTVIF bit cannot be cleared immediately after the USB module wakes
-    up from Suspend or while the USB module is suspended. A few clock cycles
-    are required to synchronize the internal hardware state machine before
-    the ACTIVIF bit can be cleared by firmware. Clearing the ACTVIF bit
-    before the internal hardware is synchronized may not have an effect on
-    the value of ACTVIF. Additonally, if the USB module uses the clock from
-    the 96 MHz PLL source, then after clearing the SUSPND bit, the USB
-    module may not be immediately operational while waiting for the 96 MHz
-    PLL to lock.
-    ********************************************************************/
-    /* UIRbits.ACTVIF = 0;                      /* Removed */ */
 #if defined(__18CXX) || defined(__XC8)
 
     while(USBActivityIF)
