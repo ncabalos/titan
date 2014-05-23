@@ -55,76 +55,76 @@ typedef union {
 } EP_STATUS;
 
 #if (USB_PING_PONG_MODE == USB_PING_PONG__NO_PING_PONG)
-#define USB_NEXT_EP0_OUT_PING_PONG 0x0000   // Used in USB Device Mode only
-#define USB_NEXT_EP0_IN_PING_PONG 0x0000    // Used in USB Device Mode only
-#define USB_NEXT_PING_PONG 0x0000           // Used in USB Device Mode only
-#define EP0_OUT_EVEN    0                   // Used in USB Device Mode only
-#define EP0_OUT_ODD     0                   // Used in USB Device Mode only
-#define EP0_IN_EVEN     1                   // Used in USB Device Mode only
-#define EP0_IN_ODD      1                   // Used in USB Device Mode only
-#define EP1_OUT_EVEN    2                   // Used in USB Device Mode only
-#define EP1_OUT_ODD     2                   // Used in USB Device Mode only
-#define EP1_IN_EVEN     3                   // Used in USB Device Mode only
-#define EP1_IN_ODD      3                   // Used in USB Device Mode only
-#define EP2_OUT_EVEN    4                   // Used in USB Device Mode only
-#define EP2_OUT_ODD     4                   // Used in USB Device Mode only
-#define EP2_IN_EVEN     5                   // Used in USB Device Mode only
-#define EP2_IN_ODD      5                   // Used in USB Device Mode only
-#define EP3_OUT_EVEN    6                   // Used in USB Device Mode only
-#define EP3_OUT_ODD     6                   // Used in USB Device Mode only
-#define EP3_IN_EVEN     7                   // Used in USB Device Mode only
-#define EP3_IN_ODD      7                   // Used in USB Device Mode only
-#define EP4_OUT_EVEN    8                   // Used in USB Device Mode only
-#define EP4_OUT_ODD     8                   // Used in USB Device Mode only
-#define EP4_IN_EVEN     9                   // Used in USB Device Mode only
-#define EP4_IN_ODD      9                   // Used in USB Device Mode only
-#define EP5_OUT_EVEN    10                  // Used in USB Device Mode only
-#define EP5_OUT_ODD     10                  // Used in USB Device Mode only
-#define EP5_IN_EVEN     11                  // Used in USB Device Mode only
-#define EP5_IN_ODD      11                  // Used in USB Device Mode only
-#define EP6_OUT_EVEN    12                  // Used in USB Device Mode only
-#define EP6_OUT_ODD     12                  // Used in USB Device Mode only
-#define EP6_IN_EVEN     13                  // Used in USB Device Mode only
-#define EP6_IN_ODD      13                  // Used in USB Device Mode only
-#define EP7_OUT_EVEN    14                  // Used in USB Device Mode only
-#define EP7_OUT_ODD     14                  // Used in USB Device Mode only
-#define EP7_IN_EVEN     15                  // Used in USB Device Mode only
-#define EP7_IN_ODD      15                  // Used in USB Device Mode only
-#define EP8_OUT_EVEN    16                  // Used in USB Device Mode only
-#define EP8_OUT_ODD     16                  // Used in USB Device Mode only
-#define EP8_IN_EVEN     17                  // Used in USB Device Mode only
-#define EP8_IN_ODD      17                  // Used in USB Device Mode only
-#define EP9_OUT_EVEN    18                  // Used in USB Device Mode only
-#define EP9_OUT_ODD     18                  // Used in USB Device Mode only
-#define EP9_IN_EVEN     19                  // Used in USB Device Mode only
-#define EP9_IN_ODD      19                  // Used in USB Device Mode only
-#define EP10_OUT_EVEN   20                  // Used in USB Device Mode only
-#define EP10_OUT_ODD    20                  // Used in USB Device Mode only
-#define EP10_IN_EVEN    21                  // Used in USB Device Mode only
-#define EP10_IN_ODD     21                  // Used in USB Device Mode only
-#define EP11_OUT_EVEN   22                  // Used in USB Device Mode only
-#define EP11_OUT_ODD    22                  // Used in USB Device Mode only
-#define EP11_IN_EVEN    23                  // Used in USB Device Mode only
-#define EP11_IN_ODD     23                  // Used in USB Device Mode only
-#define EP12_OUT_EVEN   24                  // Used in USB Device Mode only
-#define EP12_OUT_ODD    24                  // Used in USB Device Mode only
-#define EP12_IN_EVEN    25                  // Used in USB Device Mode only
-#define EP12_IN_ODD     25                  // Used in USB Device Mode only
-#define EP13_OUT_EVEN   26                  // Used in USB Device Mode only
-#define EP13_OUT_ODD    26                  // Used in USB Device Mode only
-#define EP13_IN_EVEN    27                  // Used in USB Device Mode only
-#define EP13_IN_ODD     27                  // Used in USB Device Mode only
-#define EP14_OUT_EVEN   28                  // Used in USB Device Mode only
-#define EP14_OUT_ODD    28                  // Used in USB Device Mode only
-#define EP14_IN_EVEN    29                  // Used in USB Device Mode only
-#define EP14_IN_ODD     29                  // Used in USB Device Mode only
-#define EP15_OUT_EVEN   30                  // Used in USB Device Mode only
-#define EP15_OUT_ODD    30                  // Used in USB Device Mode only
-#define EP15_IN_EVEN    31                  // Used in USB Device Mode only
-#define EP15_IN_ODD     31                  // Used in USB Device Mode only
+#define USB_NEXT_EP0_OUT_PING_PONG 0x0000   /* Used in USB Device Mode only */
+#define USB_NEXT_EP0_IN_PING_PONG 0x0000    /* Used in USB Device Mode only */
+#define USB_NEXT_PING_PONG 0x0000           /* Used in USB Device Mode only */
+#define EP0_OUT_EVEN    0                   /* Used in USB Device Mode only */
+#define EP0_OUT_ODD     0                   /* Used in USB Device Mode only */
+#define EP0_IN_EVEN     1                   /* Used in USB Device Mode only */
+#define EP0_IN_ODD      1                   /* Used in USB Device Mode only */
+#define EP1_OUT_EVEN    2                   /* Used in USB Device Mode only */
+#define EP1_OUT_ODD     2                   /* Used in USB Device Mode only */
+#define EP1_IN_EVEN     3                   /* Used in USB Device Mode only */
+#define EP1_IN_ODD      3                   /* Used in USB Device Mode only */
+#define EP2_OUT_EVEN    4                   /* Used in USB Device Mode only */
+#define EP2_OUT_ODD     4                   /* Used in USB Device Mode only */
+#define EP2_IN_EVEN     5                   /* Used in USB Device Mode only */
+#define EP2_IN_ODD      5                   /* Used in USB Device Mode only */
+#define EP3_OUT_EVEN    6                   /* Used in USB Device Mode only */
+#define EP3_OUT_ODD     6                   /* Used in USB Device Mode only */
+#define EP3_IN_EVEN     7                   /* Used in USB Device Mode only */
+#define EP3_IN_ODD      7                   /* Used in USB Device Mode only */
+#define EP4_OUT_EVEN    8                   /* Used in USB Device Mode only */
+#define EP4_OUT_ODD     8                   /* Used in USB Device Mode only */
+#define EP4_IN_EVEN     9                   /* Used in USB Device Mode only */
+#define EP4_IN_ODD      9                   /* Used in USB Device Mode only */
+#define EP5_OUT_EVEN    10                  /* Used in USB Device Mode only */
+#define EP5_OUT_ODD     10                  /* Used in USB Device Mode only */
+#define EP5_IN_EVEN     11                  /* Used in USB Device Mode only */
+#define EP5_IN_ODD      11                  /* Used in USB Device Mode only */
+#define EP6_OUT_EVEN    12                  /* Used in USB Device Mode only */
+#define EP6_OUT_ODD     12                  /* Used in USB Device Mode only */
+#define EP6_IN_EVEN     13                  /* Used in USB Device Mode only */
+#define EP6_IN_ODD      13                  /* Used in USB Device Mode only */
+#define EP7_OUT_EVEN    14                  /* Used in USB Device Mode only */
+#define EP7_OUT_ODD     14                  /* Used in USB Device Mode only */
+#define EP7_IN_EVEN     15                  /* Used in USB Device Mode only */
+#define EP7_IN_ODD      15                  /* Used in USB Device Mode only */
+#define EP8_OUT_EVEN    16                  /* Used in USB Device Mode only */
+#define EP8_OUT_ODD     16                  /* Used in USB Device Mode only */
+#define EP8_IN_EVEN     17                  /* Used in USB Device Mode only */
+#define EP8_IN_ODD      17                  /* Used in USB Device Mode only */
+#define EP9_OUT_EVEN    18                  /* Used in USB Device Mode only */
+#define EP9_OUT_ODD     18                  /* Used in USB Device Mode only */
+#define EP9_IN_EVEN     19                  /* Used in USB Device Mode only */
+#define EP9_IN_ODD      19                  /* Used in USB Device Mode only */
+#define EP10_OUT_EVEN   20                  /* Used in USB Device Mode only */
+#define EP10_OUT_ODD    20                  /* Used in USB Device Mode only */
+#define EP10_IN_EVEN    21                  /* Used in USB Device Mode only */
+#define EP10_IN_ODD     21                  /* Used in USB Device Mode only */
+#define EP11_OUT_EVEN   22                  /* Used in USB Device Mode only */
+#define EP11_OUT_ODD    22                  /* Used in USB Device Mode only */
+#define EP11_IN_EVEN    23                  /* Used in USB Device Mode only */
+#define EP11_IN_ODD     23                  /* Used in USB Device Mode only */
+#define EP12_OUT_EVEN   24                  /* Used in USB Device Mode only */
+#define EP12_OUT_ODD    24                  /* Used in USB Device Mode only */
+#define EP12_IN_EVEN    25                  /* Used in USB Device Mode only */
+#define EP12_IN_ODD     25                  /* Used in USB Device Mode only */
+#define EP13_OUT_EVEN   26                  /* Used in USB Device Mode only */
+#define EP13_OUT_ODD    26                  /* Used in USB Device Mode only */
+#define EP13_IN_EVEN    27                  /* Used in USB Device Mode only */
+#define EP13_IN_ODD     27                  /* Used in USB Device Mode only */
+#define EP14_OUT_EVEN   28                  /* Used in USB Device Mode only */
+#define EP14_OUT_ODD    28                  /* Used in USB Device Mode only */
+#define EP14_IN_EVEN    29                  /* Used in USB Device Mode only */
+#define EP14_IN_ODD     29                  /* Used in USB Device Mode only */
+#define EP15_OUT_EVEN   30                  /* Used in USB Device Mode only */
+#define EP15_OUT_ODD    30                  /* Used in USB Device Mode only */
+#define EP15_IN_EVEN    31                  /* Used in USB Device Mode only */
+#define EP15_IN_ODD     31                  /* Used in USB Device Mode only */
 
-#define EP(ep,dir,pp)   (2*ep+dir)               // Used in USB Device Mode only
-#define BD(ep,dir,pp)   ((8 * ep) + (4 * dir))   // Used in USB Device Mode only
+#define EP(ep,dir,pp)   (2*ep+dir)               /* Used in USB Device Mode only */
+#define BD(ep,dir,pp)   ((8 * ep) + (4 * dir))   /* Used in USB Device Mode only */
 
 #elif (USB_PING_PONG_MODE == USB_PING_PONG__EP0_OUT_ONLY)
 #define USB_NEXT_EP0_OUT_PING_PONG 0x0004

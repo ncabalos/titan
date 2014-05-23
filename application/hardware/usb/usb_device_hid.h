@@ -1,4 +1,4 @@
-//DOM-IGNORE-BEGIN
+/* DOM-IGNORE-BEGIN */
 /*******************************************************************************
 Software License Agreement
 
@@ -21,11 +21,11 @@ IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL OR
 CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
 
 *******************************************************************************/
-//DOM-IGNORE-END
+/* DOM-IGNORE-END */
 
 #ifndef HID_H
 #define HID_H
-//DOM-IGNORE-END
+/* DOM-IGNORE-END */
 
 /** INCLUDES *******************************************************/
 
@@ -80,8 +80,8 @@ CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
         <code>
         void USBCBCheckOtherReq(void)
         {
-            //Since the stack didn't handle the request I need to check
-            //  my class drivers to see if it is for them
+            /* Since the stack didn't handle the request I need to check */
+            /*  my class drivers to see if it is for them */
             USBCheckHIDRequest();
         }
         </code>
@@ -123,11 +123,11 @@ void USBCheckHIDRequest(void);
 
         Typical Usage:
         <code>
-        //make sure that the last transfer isn't busy by checking the handle
+        /* make sure that the last transfer isn't busy by checking the handle */
         if(!HIDTxHandleBusy(USBInHandle))
         {
-            //Send the data contained in the ToSendDataBuffer[] array out on
-            //  endpoint HID_EP
+            /* Send the data contained in the ToSendDataBuffer[] array out on */
+            /*  endpoint HID_EP */
             USBInHandle = HIDTxPacket(HID_EP,(uint8_t*)&ToSendDataBuffer[0],sizeof(ToSendDataBuffer));
         }
         </code>
@@ -176,8 +176,8 @@ void USBCheckHIDRequest(void);
         <code>
         if(!HIDRxHandleBusy(USBOutHandle))
         {
-            //The data is available in the buffer that was specified when the
-            //  HIDRxPacket() was called.
+            /* The data is available in the buffer that was specified when the */
+            /*  HIDRxPacket() was called. */
         }
         </code>
 
@@ -214,11 +214,11 @@ void USBCheckHIDRequest(void);
 
         Typical Usage:
         <code>
-        //make sure that the last transfer isn't busy by checking the handle
+        /* make sure that the last transfer isn't busy by checking the handle */
         if(!HIDTxHandleBusy(USBInHandle))
         {
-            //Send the data contained in the ToSendDataBuffer[] array out on
-            //  endpoint HID_EP
+            /* Send the data contained in the ToSendDataBuffer[] array out on */
+            /*  endpoint HID_EP */
             USBInHandle = HIDTxPacket(HID_EP,(uint8_t*)&ToSendDataBuffer[0],sizeof(ToSendDataBuffer));
         }
         </code>
@@ -253,9 +253,9 @@ void USBCheckHIDRequest(void);
 
         Typical Usage:
         <code>
-        //Read 64-uint8_ts from endpoint HID_EP, into the ReceivedDataBuffer array.
-        //  Make sure to save the return handle so that we can check it later
-        //  to determine when the transfer is complete.
+        /* Read 64-uint8_ts from endpoint HID_EP, into the ReceivedDataBuffer array. */
+        /*  Make sure to save the return handle so that we can check it later */
+        /*  to determine when the transfer is complete. */
         USBOutHandle = HIDRxPacket(HID_EP,(uint8_t*)&ReceivedDataBuffer,64);
         </code>
 
@@ -277,26 +277,26 @@ void USBCheckHIDRequest(void);
  *******************************************************************/
 #define HIDRxPacket USBRxOnePacket
 
-// Section: STRUCTURES *********************************************/
+/* Section: STRUCTURES *********************************************/ */
 
-//USB HID Descriptor header as detailed in section
-//"6.2.1 HID Descriptor" of the HID class definition specification
+/* USB HID Descriptor header as detailed in section */
+/* "6.2.1 HID Descriptor" of the HID class definition specification */
 typedef struct _USB_HID_DSC_HEADER {
-    uint8_t bDescriptorType;	//offset 9
-    uint16_t wDscLength;		//offset 10
+    uint8_t bDescriptorType;	/* offset 9 */
+    uint16_t wDscLength;		/* offset 10 */
 } USB_HID_DSC_HEADER;
 
-//USB HID Descriptor header as detailed in section
-//"6.2.1 HID Descriptor" of the HID class definition specification
+/* USB HID Descriptor header as detailed in section */
+/* "6.2.1 HID Descriptor" of the HID class definition specification */
 typedef struct _USB_HID_DSC {
-    uint8_t bLength;			//offset 0
-    uint8_t bDescriptorType;	//offset 1
-    uint16_t bcdHID;			//offset 2
-    uint8_t bCountryCode;		//offset 4
-    uint8_t bNumDsc;			//offset 5
+    uint8_t bLength;			/* offset 0 */
+    uint8_t bDescriptorType;	/* offset 1 */
+    uint16_t bcdHID;			/* offset 2 */
+    uint8_t bCountryCode;		/* offset 4 */
+    uint8_t bNumDsc;			/* offset 5 */
 
 
-    //USB_HID_DSC_HEADER hid_dsc_header[HID_NUM_OF_DSC];
+    /* USB_HID_DSC_HEADER hid_dsc_header[HID_NUM_OF_DSC]; */
     /* HID_NUM_OF_DSC is defined in usbcfg.h */
 
 } USB_HID_DSC;
@@ -306,4 +306,4 @@ extern volatile CTRL_TRF_SETUP SetupPkt;
 extern const uint8_t configDescriptor1[];
 extern volatile uint8_t CtrlTrfData[USB_EP0_BUFF_SIZE];
 
-#endif //HID_H
+#endif /* HID_H */

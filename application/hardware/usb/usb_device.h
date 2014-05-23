@@ -1,4 +1,4 @@
-//DOM-IGNORE-BEGIN
+/* DOM-IGNORE-BEGIN */
 /*******************************************************************************
 Software License Agreement
 
@@ -21,12 +21,12 @@ IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL OR
 CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
 
 *******************************************************************************/
-//DOM-IGNORE-END
+/* DOM-IGNORE-END */
 
-//DOM-IGNORE-BEGIN
+/* DOM-IGNORE-BEGIN */
 #ifndef USBDEVICE_H
 #define USBDEVICE_H
-//DOM-IGNORE-END
+/* DOM-IGNORE-END */
 #include <p24Fxxxx.h>
 #include "usb_common.h"
 #include <stdint.h>
@@ -38,18 +38,18 @@ CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
 
 /** DEFINITIONS ****************************************************/
 
-//USB_HANDLE is a pointer to an entry in the BDT.  This pointer can be used
-//  to read the length of the last transfer, the status of the last transfer,
-//  and various other information.  Insure to initialize USB_HANDLE objects
-//  to NULL so that they are in a known state during their first usage.
+/* USB_HANDLE is a pointer to an entry in the BDT.  This pointer can be used */
+/*  to read the length of the last transfer, the status of the last transfer, */
+/*  and various other information.  Insure to initialize USB_HANDLE objects */
+/*  to NULL so that they are in a known state during their first usage. */
 #define USB_HANDLE void*
 
-#define USB_EP0_ROM            0x00     //Data comes from RAM
-#define USB_EP0_RAM            0x01     //Data comes from const
-#define USB_EP0_BUSY           0x80     //The PIPE is busy
-#define USB_EP0_INCLUDE_ZERO   0x40     //include a trailing zero packet
-#define USB_EP0_NO_DATA        0x00     //no data to send
-#define USB_EP0_NO_OPTIONS     0x00     //no options set
+#define USB_EP0_ROM            0x00     /* Data comes from RAM */
+#define USB_EP0_RAM            0x01     /* Data comes from const */
+#define USB_EP0_BUSY           0x80     /* The PIPE is busy */
+#define USB_EP0_INCLUDE_ZERO   0x40     /* include a trailing zero packet */
+#define USB_EP0_NO_DATA        0x00     /* no data to send */
+#define USB_EP0_NO_OPTIONS     0x00     /* no options set */
 
 /********************************************************************
  * Standard Request Codes
@@ -64,87 +64,87 @@ typedef enum {
     in the detached state a device should not have any pull-ups attached to either
     the D+ or D- line.  */
     DETACHED_STATE
-    /*DOM-IGNORE-BEGIN*/    = 0x00                         /*DOM-IGNORE-END*/,
+    /* DOM-IGNORE-BEGIN*/    = 0x00                         /*DOM-IGNORE-END*/,
     /* Attached is the state in which the device is attached ot the bus but the
     hub/port that it is attached to is not yet configured. */
     ATTACHED_STATE
-    /*DOM-IGNORE-BEGIN*/    = 0x01                         /*DOM-IGNORE-END*/,
+    /* DOM-IGNORE-BEGIN*/    = 0x01                         /*DOM-IGNORE-END*/,
     /* Powered is the state in which the device is attached to the bus and the
     hub/port that it is attached to is configured. */
     POWERED_STATE
-    /*DOM-IGNORE-BEGIN*/    = 0x02                         /*DOM-IGNORE-END*/,
+    /* DOM-IGNORE-BEGIN*/    = 0x02                         /*DOM-IGNORE-END*/,
     /* Default state is the state after the device receives a RESET command from
     the host. */
     DEFAULT_STATE
-    /*DOM-IGNORE-BEGIN*/    = 0x04                         /*DOM-IGNORE-END*/,
+    /* DOM-IGNORE-BEGIN*/    = 0x04                         /*DOM-IGNORE-END*/,
     /* Address pending state is not an official state of the USB defined states.
     This state is internally used to indicate that the device has received a
     SET_ADDRESS command but has not received the STATUS stage of the transfer yet.
     The device is should not switch addresses until after the STATUS stage is
     complete.  */
     ADR_PENDING_STATE
-    /*DOM-IGNORE-BEGIN*/    = 0x08                         /*DOM-IGNORE-END*/,
+    /* DOM-IGNORE-BEGIN*/    = 0x08                         /*DOM-IGNORE-END*/,
     /* Address is the state in which the device has its own specific address on the
     bus. */
     ADDRESS_STATE
-    /*DOM-IGNORE-BEGIN*/    = 0x10                         /*DOM-IGNORE-END*/,
+    /* DOM-IGNORE-BEGIN*/    = 0x10                         /*DOM-IGNORE-END*/,
     /* Configured is the state where the device has been fully enumerated and is
     operating on the bus.  The device is now allowed to excute its application
     specific tasks.  It is also allowed to increase its current consumption to the
     value specified in the configuration descriptor of the current configuration.
     */
     CONFIGURED_STATE
-    /*DOM-IGNORE-BEGIN*/    = 0x20                        /*DOM-IGNORE-END*/
+    /* DOM-IGNORE-BEGIN*/    = 0x20                        /*DOM-IGNORE-END*/
 } USB_DEVICE_STATE;
 
 
 /* USB device stack events description here - DWF */
 typedef enum {
-    // Notification that a SET_CONFIGURATION() command was received (device)
+    /* Notification that a SET_CONFIGURATION() command was received (device) */
     EVENT_CONFIGURED
-    /*DOM-IGNORE-BEGIN*/    = EVENT_DEVICE_STACK_BASE        /*DOM-IGNORE-END*/,
+    /* DOM-IGNORE-BEGIN*/    = EVENT_DEVICE_STACK_BASE        /*DOM-IGNORE-END*/,
 
-    // A SET_DESCRIPTOR request was received (device)
+    /* A SET_DESCRIPTOR request was received (device) */
     EVENT_SET_DESCRIPTOR,
 
-    // An endpoint 0 request was received that the stack did not know how to
-    // handle.  This is most often a request for one of the class drivers.
-    // Please refer to the class driver documentation for information related
-    // to what to do if this request is received. (device)
+    /* An endpoint 0 request was received that the stack did not know how to */
+    /* handle.  This is most often a request for one of the class drivers. */
+    /* Please refer to the class driver documentation for information related */
+    /* to what to do if this request is received. (device) */
     EVENT_EP0_REQUEST,
 
-//    // A USB transfer has completed.  The data associated with this event is of
-//    // the data type HOST_TRANSFER_DATA if the event is generated from the host
-//    // stack.
-//    EVENT_TRANSFER,
-//
-//    // A USB Start of Frame token has been received.  This event is not
-//    // used by the Host stack.
-//    EVENT_SOF,
-//
-//    // Device-mode resume received.  This event is not used by the Host stack.
-//    EVENT_RESUME,
-//
-//    // Device-mode suspend/idle event received.  This event is not used by the
-//    // Host stack.
-//    EVENT_SUSPEND,
-//
-//    // Device-mode bus reset received.  This event is not used by the Host
-//    // stack.
-//    EVENT_RESET,
+/*    /* A USB transfer has completed.  The data associated with this event is of */ */
+/*    /* the data type HOST_TRANSFER_DATA if the event is generated from the host */ */
+/*    /* stack. */ */
+/*    EVENT_TRANSFER, */
+/**/
+/*    /* A USB Start of Frame token has been received.  This event is not */ */
+/*    /* used by the Host stack. */ */
+/*    EVENT_SOF, */
+/**/
+/*    /* Device-mode resume received.  This event is not used by the Host stack. */ */
+/*    EVENT_RESUME, */
+/**/
+/*    /* Device-mode suspend/idle event received.  This event is not used by the */ */
+/*    /* Host stack. */ */
+/*    EVENT_SUSPEND, */
+/**/
+/*    /* Device-mode bus reset received.  This event is not used by the Host */ */
+/*    /* stack. */ */
+/*    EVENT_RESET, */
 
-//    // Device Mode: A setup packet received (data: SETUP_PKT).  This event is
-//    // not used by the Host stack.
-//    EVENT_SETUP,
+/*    /* Device Mode: A setup packet received (data: SETUP_PKT).  This event is */ */
+/*    /* not used by the Host stack. */ */
+/*    EVENT_SETUP, */
 
-    // Device-mode USB cable has been attached.  This event is not used by the
-    // Host stack.  The client driver may provide an application event when a
-    // device attaches.
+    /* Device-mode USB cable has been attached.  This event is not used by the */
+    /* Host stack.  The client driver may provide an application event when a */
+    /* device attaches. */
     EVENT_ATTACH,
 
-    // A user transfer was terminated by the stack.  This event will pass back
-    // the value of the handle that was terminated.  Compare this value against
-    // the current valid handles to determine which transfer was terminated.
+    /* A user transfer was terminated by the stack.  This event will pass back */
+    /* the value of the handle that was terminated.  Compare this value against */
+    /* the current valid handles to determine which transfer was terminated. */
     EVENT_TRANSFER_TERMINATED
 
 } USB_DEVICE_STACK_EVENTS;
@@ -240,18 +240,18 @@ void USBDeviceInit(void);
         USBDeviceInit();
         while(1)
         {
-            USBDeviceTasks(); //Takes care of enumeration and other USB events
+            USBDeviceTasks(); /* Takes care of enumeration and other USB events */
             if((USBGetDeviceState() \< CONFIGURED_STATE) ||
                (USBIsDeviceSuspended() == true))
             {
-                //Either the device is not configured or we are suspended,
-                // so we don't want to execute any USB related application code
-                continue;   //go back to the top of the while loop
+                /* Either the device is not configured or we are suspended, */
+                /* so we don't want to execute any USB related application code */
+                continue;   /* go back to the top of the while loop */
             }
             else
             {
-                //Otherwise we are free to run USB and non-USB related user
-                //application code.
+                /* Otherwise we are free to run USB and non-USB related user */
+                /* application code. */
                 UserApplication();
             }
         }
@@ -370,18 +370,18 @@ void USBEnableEndpoint(uint8_t ep, uint8_t options);
 
     Typical Usage
     <code>
-    //make sure that the we are in the configured state
+    /* make sure that the we are in the configured state */
     if(USBGetDeviceState() == CONFIGURED_STATE)
     {
-        //make sure that the last transaction isn't busy by checking the handle
+        /* make sure that the last transaction isn't busy by checking the handle */
         if(!USBHandleBusy(USBInHandle))
         {
-	        //Write the new data that we wish to send to the host to the INPacket[] array
+	        /* Write the new data that we wish to send to the host to the INPacket[] array */
 	        INPacket[0] = USEFUL_APPLICATION_VALUE1;
 	        INPacket[1] = USEFUL_APPLICATION_VALUE2;
-	        //INPacket[2] = ... (fill in the rest of the packet data)
+	        /* INPacket[2] = ... (fill in the rest of the packet data) */
 
-            //Send the data contained in the INPacket[] array through endpoint "EP_NUM"
+            /* Send the data contained in the INPacket[] array through endpoint "EP_NUM" */
             USBInHandle = USBTransferOnePacket(EP_NUM,IN_TO_HOST,(uint8_t*)&INPacket[0],sizeof(INPacket));
         }
     }
@@ -577,11 +577,11 @@ void USBCancelIO(uint8_t endpoint);
   **************************************************************************/
 void USBDeviceDetach(void);
 
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #if !defined(USB_INTERRUPT)
 #define USBDeviceDetach()
 #endif
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /**************************************************************************
     Function:
@@ -622,11 +622,11 @@ void USBDeviceDetach(void);
 ****************************************************************************/
 void USBDeviceAttach(void);
 
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #if !defined(USB_INTERRUPT)
 #define USBDeviceAttach()
 #endif
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 
 /*******************************************************************************
@@ -767,9 +767,9 @@ void USBCtrlEPAllowDataStage(void);
   *****************************************************************************/
 void USBDeferOUTDataStage(void);
 extern volatile bool USBDeferOUTDataStagePackets;
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBDeferOUTDataStage()   {USBDeferOUTDataStagePackets = true; outPipes[0].info.bits.busy = 1;}
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /*******************************************************************************
   Function: void USBDeferStatusStage(void);
@@ -837,9 +837,9 @@ extern volatile bool USBDeferOUTDataStagePackets;
   *****************************************************************************/
 void USBDeferStatusStage(void);
 extern volatile bool USBDeferStatusStagePacket;
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBDeferStatusStage()   {USBDeferStatusStagePacket = true;}
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 
 /*******************************************************************************
@@ -888,9 +888,9 @@ extern volatile bool USBDeferStatusStagePacket;
   Remarks:
   *****************************************************************************/
 bool USBOUTDataStageDeferred(void);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBOUTDataStageDeferred() USBDeferOUTDataStagePackets
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /*******************************************************************************
   Function: void USBDeferINDataStage(void);
@@ -972,9 +972,9 @@ bool USBOUTDataStageDeferred(void);
   *****************************************************************************/
 void USBDeferINDataStage(void);
 extern volatile bool USBDeferINDataStagePackets;
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBDeferINDataStage()   {USBDeferINDataStagePackets = true; inPipes[0].info.bits.busy = 1;}
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 
 
@@ -1025,9 +1025,9 @@ extern volatile bool USBDeferINDataStagePackets;
   Remarks:
   *****************************************************************************/
 bool USBINDataStageDeferred(void);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBINDataStageDeferred() USBDeferINDataStagePackets
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 
 
@@ -1064,16 +1064,16 @@ bool USBINDataStageDeferred(void);
 
     <code lang="c">
     const uint8_t configDescriptor1[]={
-        0x09,                           // Size
-        USB_DESCRIPTOR_CONFIGURATION,   // descriptor type
-        DESC_CONFIG_WORD(0x0022),       // Total length
-        1,                              // Number of interfaces
-        1,                              // Index value of this cfg
-        0,                              // Configuration string index
-        _DEFAULT | _SELF | _RWU,        // Attributes, see usb_device.h
-        50,                             // Max power consumption in 2X mA(100mA)
+        0x09,                           /* Size */
+        USB_DESCRIPTOR_CONFIGURATION,   /* descriptor type */
+        DESC_CONFIG_WORD(0x0022),       /* Total length */
+        1,                              /* Number of interfaces */
+        1,                              /* Index value of this cfg */
+        0,                              /* Configuration string index */
+        _DEFAULT | _SELF | _RWU,        /* Attributes, see usb_device.h */
+        50,                             /* Max power consumption in 2X mA(100mA) */
 
-        //The rest of the configuration descriptor should follow
+        /* The rest of the configuration descriptor should follow */
     </code>
 
     For more information about remote wakeup, see the following section of
@@ -1095,9 +1095,9 @@ bool USBINDataStageDeferred(void);
 
   *******************************************************************/
 bool USBGetRemoteWakeupStatus(void);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBGetRemoteWakeupStatus() RemoteWakeup
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /***************************************************************************
   Function:
@@ -1131,13 +1131,13 @@ bool USBGetRemoteWakeupStatus(void);
             if((USBGetDeviceState() \< CONFIGURED_STATE) ||
                (USBIsDeviceSuspended() == true))
             {
-                //Either the device is not configured or we are suspended
-                //  so we don't want to do execute any application code
-                continue;   //go back to the top of the while loop
+                /* Either the device is not configured or we are suspended */
+                /*  so we don't want to do execute any application code */
+                continue;   /* go back to the top of the while loop */
             }
             else
             {
-                //Otherwise we are free to run user application code.
+                /* Otherwise we are free to run user application code. */
                 UserApplication();
             }
         }
@@ -1152,9 +1152,9 @@ bool USBGetRemoteWakeupStatus(void);
     None
   ***************************************************************************/
 USB_DEVICE_STATE USBGetDeviceState(void);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBGetDeviceState() USBDeviceState
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 
 
@@ -1187,13 +1187,13 @@ USB_DEVICE_STATE USBGetDeviceState(void);
                if((USBGetDeviceState() \< CONFIGURED_STATE) ||
                   (USBGetSuspendState() == true))
                {
-                   //Either the device is not configured or we are suspended
-                   //  so we don't want to do execute any application code
-                   continue;   //go back to the top of the while loop
+                   /* Either the device is not configured or we are suspended */
+                   /*  so we don't want to do execute any application code */
+                   continue;   /* go back to the top of the while loop */
                }
                else
                {
-                   //Otherwise we are free to run user application code.
+                   /* Otherwise we are free to run user application code. */
                    UserApplication();
                }
            }
@@ -1208,9 +1208,9 @@ USB_DEVICE_STATE USBGetDeviceState(void);
     This function is the same as USBIsBusSuspended().
   ***************************************************************************/
 bool USBGetSuspendState(void);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBGetSuspendState() USBBusIsSuspended
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /*******************************************************************************
   Function:
@@ -1230,7 +1230,7 @@ bool USBGetSuspendState(void);
     {
         return;
     }
-    // otherwise do some application specific tasks
+    /* otherwise do some application specific tasks */
     </code>
 
   Conditions:
@@ -1243,9 +1243,9 @@ bool USBGetSuspendState(void);
     None
   *****************************************************************************/
 bool USBIsDeviceSuspended(void);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBIsDeviceSuspended() USBSuspendControl
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 
 /*******************************************************************************
@@ -1264,13 +1264,13 @@ bool USBIsDeviceSuspended(void);
     <code>
     if((USBIsBusSuspended() == true) && (USBGetRemoteWakeupStatus() == true))
     {
-        //Check if some stimulus occured, which will be used as the wakeup source
+        /* Check if some stimulus occured, which will be used as the wakeup source */
         if(sw3 == 0)
         {
-            USBCBSendResume();  //Send the remote wakeup signalling to the host
+            USBCBSendResume();  /* Send the remote wakeup signalling to the host */
         }
     }
-    // otherwise do some other application specific tasks
+    /* otherwise do some other application specific tasks */
     </code>
 
   Conditions:
@@ -1286,9 +1286,9 @@ bool USBIsDeviceSuspended(void);
     sure USBDeviceTasks() has executed recently (if using USB polling mode).
   *****************************************************************************/
 bool USBIsBusSuspended(void);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBIsBusSuspended() USBBusIsSuspended
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /*******************************************************************************
   Function:
@@ -1312,9 +1312,9 @@ bool USBIsBusSuspended(void);
     reattached to the bus.
   *****************************************************************************/
 void USBSoftDetach(void);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBSoftDetach()  U1CON = 0; U1IE = 0; USBDeviceState = DETACHED_STATE;
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 
 /*************************************************************************
@@ -1329,11 +1329,11 @@ void USBSoftDetach(void);
 
     Typical Usage
     <code>
-    //make sure that the last transfer isn't busy by checking the handle
+    /* make sure that the last transfer isn't busy by checking the handle */
     if(!USBHandleBusy(USBGenericInHandle))
     {
-        //Send the data contained in the INPacket[] array out on
-        //  endpoint USBGEN_EP_NUM
+        /* Send the data contained in the INPacket[] array out on */
+        /*  endpoint USBGEN_EP_NUM */
         USBGenericInHandle = USBGenWrite(USBGEN_EP_NUM,(uint8_t*)&INPacket[0],sizeof(INPacket));
     }
     </code>
@@ -1350,9 +1350,9 @@ void USBSoftDetach(void);
     None
   *************************************************************************/
 bool USBHandleBusy(USB_HANDLE handle);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBHandleBusy(handle) (handle==0?0:((volatile BDT_ENTRY*)handle)->STAT.UOWN)
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /********************************************************************
     Function:
@@ -1384,9 +1384,9 @@ bool USBHandleBusy(USB_HANDLE handle);
 
  *******************************************************************/
 uint16_t USBHandleGetLength(USB_HANDLE handle);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBHandleGetLength(handle) (((volatile BDT_ENTRY*)handle)->CNT)
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /********************************************************************
     Function:
@@ -1416,9 +1416,9 @@ uint16_t USBHandleGetLength(USB_HANDLE handle);
 
  *******************************************************************/
 uint16_t USBHandleGetAddr(USB_HANDLE);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBHandleGetAddr(handle) ConvertToVirtualAddress((((volatile BDT_ENTRY*)handle)->ADR))
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 
 /********************************************************************
@@ -1459,19 +1459,19 @@ uint16_t USBHandleGetAddr(USB_HANDLE);
         uint8_t UserDataBuffer2[64];
         uint8_t* pDataBuffer = &UserDataBuffer1[0];
 
-        //Add some code that loads UserDataBuffer1[] with useful data to send,
-        //using the pDataBuffer pointer, for example:
-        //for(i = 0; i < 64; i++)
-        //{
-        //  *pDataBuffer++ = [useful data value];
-        //}
+        /* Add some code that loads UserDataBuffer1[] with useful data to send, */
+        /* using the pDataBuffer pointer, for example: */
+        /* for(i = 0; i < 64; i++) */
+        /* { */
+        /*  *pDataBuffer++ = [useful data value]; */
+        /* } */
 
-        //Check if the next USB endpoint BDT is available
+        /* Check if the next USB endpoint BDT is available */
         if(!USBHandleBusy(USBGetNextHandle(ep_num, IN_TO_HOST))
         {
-            //The endpoint is available.  Send the data.
+            /* The endpoint is available.  Send the data. */
             *pHandle = USBTransferOnePacket(ep_num, ep_dir, pDataBuffer, bytecount);
-            //Toggle the handle and buffer pointer for the next transaction
+            /* Toggle the handle and buffer pointer for the next transaction */
             if(pHandle == &Handle1)
             {
                 pHandle = &Handle2;
@@ -1484,23 +1484,23 @@ uint16_t USBHandleGetAddr(USB_HANDLE);
             }
         }
 
-        //The firmware can then load the next data buffer (in this case
-        //UserDataBuffer2)with useful data, and send it using the same
-        //process.  For example:
+        /* The firmware can then load the next data buffer (in this case */
+        /* UserDataBuffer2)with useful data, and send it using the same */
+        /* process.  For example: */
 
-        //Add some code that loads UserDataBuffer2[] with useful data to send,
-        //using the pDataBuffer pointer, for example:
-        //for(i = 0; i < 64; i++)
-        //{
-        //  *pDataBuffer++ = [useful data value];
-        //}
+        /* Add some code that loads UserDataBuffer2[] with useful data to send, */
+        /* using the pDataBuffer pointer, for example: */
+        /* for(i = 0; i < 64; i++) */
+        /* { */
+        /*  *pDataBuffer++ = [useful data value]; */
+        /* } */
 
-        //Check if the next USB endpoint BDT is available
+        /* Check if the next USB endpoint BDT is available */
         if(!USBHandleBusy(USBGetNextHandle(ep_num, IN_TO_HOST))
         {
-            //The endpoint is available.  Send the data.
+            /* The endpoint is available.  Send the data. */
             *pHandle = USBTransferOnePacket(ep_num, ep_dir, pDataBuffer, bytecount);
-            //Toggle the handle and buffer pointer for the next transaction
+            /* Toggle the handle and buffer pointer for the next transaction */
             if(pHandle == &Handle1)
             {
                 pHandle = &Handle2;
@@ -1516,9 +1516,9 @@ uint16_t USBHandleGetAddr(USB_HANDLE);
 
   *******************************************************************/
 USB_HANDLE USBGetNextHandle(uint8_t ep_num, uint8_t ep_dir);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBGetNextHandle(ep_num, ep_dir) ((ep_dir == OUT_FROM_HOST)?((USB_HANDLE)pBDTEntryOut[ep_num]):((USB_HANDLE)pBDTEntryIn[ep_num]))
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /********************************************************************
     Function:
@@ -1549,9 +1549,9 @@ USB_HANDLE USBGetNextHandle(uint8_t ep_num, uint8_t ep_dir);
 
  *******************************************************************/
 void USBEP0Transmit(uint8_t options);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBEP0Transmit(options) inPipes[0].info.Val = options | USB_EP0_BUSY
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /*************************************************************************
   Function:
@@ -1577,13 +1577,13 @@ void USBEP0Transmit(uint8_t options);
     None
   *************************************************************************/
 void USBEP0SendRAMPtr(uint8_t * src, uint16_t size, uint8_t Options);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBEP0SendRAMPtr(src,size,options)  {\
             inPipes[0].pSrc.bRam = src;\
             inPipes[0].wCount.Val = size;\
             inPipes[0].info.Val = options | USB_EP0_BUSY | USB_EP0_RAM;\
             }
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /**************************************************************************
   Function:
@@ -1609,13 +1609,13 @@ void USBEP0SendRAMPtr(uint8_t * src, uint16_t size, uint8_t Options);
     None
   **************************************************************************/
 void USBEP0SendROMPtr(uint8_t * src, uint16_t size, uint8_t Options);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBEP0SendROMPtr(src,size,options)  {\
             inPipes[0].pSrc.bRom = src;\
             inPipes[0].wCount.Val = size;\
             inPipes[0].info.Val = options | USB_EP0_BUSY | USB_EP0_ROM;\
             }
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /***************************************************************************
   Function:
@@ -1637,9 +1637,9 @@ void USBEP0SendROMPtr(uint8_t * src, uint16_t size, uint8_t Options);
     None
   ***************************************************************************/
 void USBEP0Receive(uint8_t * dest, uint16_t size, void (*function));
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBEP0Receive(dest,size,function)  {outPipes[0].pDst.bRam = dest;outPipes[0].wCount.Val = size;outPipes[0].pFunc = function;outPipes[0].info.bits.busy = 1; }
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /********************************************************************
     Function:
@@ -1672,9 +1672,9 @@ void USBEP0Receive(uint8_t * dest, uint16_t size, void (*function));
 
  *******************************************************************/
 USB_HANDLE USBTxOnePacket(uint8_t ep, uint8_t * data, uint16_t len);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBTxOnePacket(ep,data,len)     USBTransferOnePacket(ep,IN_TO_HOST,data,len)
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /********************************************************************
     Function:
@@ -1709,9 +1709,9 @@ USB_HANDLE USBTxOnePacket(uint8_t ep, uint8_t * data, uint16_t len);
 
  *******************************************************************/
 USB_HANDLE USBRxOnePacket(uint8_t ep, uint8_t * data, uint16_t len);
-/*DOM-IGNORE-BEGIN*/
+/* DOM-IGNORE-BEGIN*/
 #define USBRxOnePacket(ep,data,len)      USBTransferOnePacket(ep,OUT_FROM_HOST,data,len)
-/*DOM-IGNORE-END*/
+/* DOM-IGNORE-END*/
 
 /*******************************************************************************
   Function:
@@ -1753,9 +1753,9 @@ bool USB_APPLICATION_EVENT_HANDLER(uint8_t address, USB_EVENT event,
     Typical Usage:
     <code>
         const uint8_t configDescriptor1[]={
-            0x09,                           // Size of this descriptor in bytes
-            USB_DESCRIPTOR_CONFIGURATION,   // CONFIGURATION descriptor type
-            DESC_CONFIG_WORD(0x0022),       // Total length of data for this cfg
+            0x09,                           /* Size of this descriptor in bytes */
+            USB_DESCRIPTOR_CONFIGURATION,   /* CONFIGURATION descriptor type */
+            DESC_CONFIG_WORD(0x0022),       /* Total length of data for this cfg */
     </code>
 */
 #define DESC_CONFIG_WORD(a) (a&0xFF),((a>>8)&0xFF)
@@ -1818,14 +1818,14 @@ typedef union {
     } byte;
 } uint16_t_VAL;
 
-// Defintion of the PIPE structure
-//  This structure is used to keep track of data that is sent out
-//  of the stack automatically.
+/* Defintion of the PIPE structure */
+/*  This structure is used to keep track of data that is sent out */
+/*  of the stack automatically. */
 typedef struct __attribute__ ((packed))
 {
     union __attribute__ ((packed)) {
-        //Various options of pointers that are available to
-        // get the data from
+        /* Various options of pointers that are available to */
+        /* get the data from */
         uint8_t * bRam;
         const uint8_t * bRom;
         uint16_t * wRam;
@@ -1834,13 +1834,13 @@ typedef struct __attribute__ ((packed))
     pSrc;
     union __attribute__ ((packed)) {
         struct __attribute__ ((packed)) {
-            //is this transfer from RAM or const?
+            /* is this transfer from RAM or const? */
             uint8_t ctrl_trf_mem          : 1;
             uint8_t reserved              : 5;
-            //include a zero length packet after
-            //data is done if data_size%ep_size = 0?
+            /* include a zero length packet after */
+            /* data is done if data_size%ep_size = 0? */
             uint8_t includeZero           : 1;
-            //is this PIPE currently in use
+            /* is this PIPE currently in use */
             uint8_t busy                  : 1;
         }
         bits;
@@ -1856,8 +1856,8 @@ extern USB_VOLATILE IN_PIPE inPipes[];
 typedef struct __attribute__ ((packed))
 {
     union __attribute__ ((packed)) {
-        //Various options of pointers that are available to
-        // get the data from
+        /* Various options of pointers that are available to */
+        /* get the data from */
         uint8_t * bRam;
         uint16_t * wRam;
     }
@@ -1865,7 +1865,7 @@ typedef struct __attribute__ ((packed))
     union __attribute__ ((packed)) {
         struct __attribute__ ((packed)) {
             uint8_t reserved              : 7;
-            //is this PIPE currently in use
+            /* is this PIPE currently in use */
             uint8_t busy                  : 1;
         }
         bits;
@@ -1878,12 +1878,12 @@ typedef struct __attribute__ ((packed))
 OUT_PIPE;
 
 /************* DWF - SHOULD BE REIMPLEMENTED AS AN EVENT *******************/
-//#if defined(ENABLE_EP0_DATA_RECEIVED_CALLBACK)
-//    void USBCBEP0DataReceived(void);
-//    #define USBCB_EP0_DATA_RECEIVED() USBCBEP0DataReceived()
-//#else
-//    #define USBCB_EP0_DATA_RECEIVED()
-//#endif
+/* #if defined(ENABLE_EP0_DATA_RECEIVED_CALLBACK) */
+/*    void USBCBEP0DataReceived(void); */
+/*    #define USBCB_EP0_DATA_RECEIVED() USBCBEP0DataReceived() */
+/* #else */
+/*    #define USBCB_EP0_DATA_RECEIVED() */
+/* #endif */
 
 extern USB_VOLATILE bool RemoteWakeup;
 extern USB_VOLATILE bool USBBusIsSuspended;
@@ -1894,4 +1894,4 @@ extern USB_VOLATILE uint8_t USBActiveConfiguration;
 
 #include "usb_hal.h"
 
-#endif //USB_DEVICE_H
+#endif /* USB_DEVICE_H */

@@ -1,4 +1,4 @@
-/*
+/* 
  * File:   hardware_config.h
  * Author: ncabalos
  *

@@ -45,7 +45,7 @@ Description:
 
 
 *******************************************************************************/
-//DOM-IGNORE-BEGIN
+/* DOM-IGNORE-BEGIN */
 /******************************************************************************
 
  File Description:
@@ -81,7 +81,7 @@ Description:
 
  *************************************************************************/
 
-//DOM-IGNORE-BEGIN
+/* DOM-IGNORE-BEGIN */
 /********************************************************************
  Change History:
   Rev    Description
@@ -91,15 +91,15 @@ Description:
            instruction and returning the device to the correct state after
            exiting sleep.
 ********************************************************************/
-//DOM-IGNORE-END
+/* DOM-IGNORE-END */
 
 #ifndef USB_HAL_PIC24F_C
 #define USB_HAL_PIC24F_C
 
 #include "usb.h"
 
-//Only include the source for this file if you are using C30.  This code
-//  applies only to PIC24 parts.
+/* Only include the source for this file if you are using C30.  This code */
+/*  applies only to PIC24 parts. */
 #if defined(__C30__) || defined __XC16__
 
 /********************************************************************
@@ -133,36 +133,36 @@ bool USBSleepOnSuspend(void)
     unsigned char USB1IE_save;
 #if defined(USB_POLLING)
 
-    //If IPL is equal to 0 then there is no way for the USB module to
-    //  generate an interrupt to wake up the device.
+    /* If IPL is equal to 0 then there is no way for the USB module to */
+    /*  generate an interrupt to wake up the device. */
     if(_IPL == 0) {
         return FALSE;
     }
 
-    //Set the interrupt priority to a level that will wake up the part (>0)
-    //  but will not cause a interrupt vector jump (USB1IP<=IPL)
+    /* Set the interrupt priority to a level that will wake up the part (>0) */
+    /*  but will not cause a interrupt vector jump (USB1IP<=IPL) */
     _USB1IP = 1;
 #endif
-    //Save the old interrupt and CPU settings
+    /* Save the old interrupt and CPU settings */
     U1EIE_save = U1EIE;
     U1IE_save = U1IE;
     U1OTGIE_save = U1OTGIE;
     USB1IE_save = IEC5bits.USB1IE;
-    //Disable all USB interrupts
+    /* Disable all USB interrupts */
     U1EIE = 0;
     U1IE = 0;
     U1OTGIE = 0;
-    //Enable the interrupt
+    /* Enable the interrupt */
     IFS5bits.USB1IF = 0;
     U1OTGIEbits.ACTVIE = 1;
     USBClearInterruptFlag(USBActivityIFReg, USBActivityIFBitNum);
     IEC5bits.USB1IE = 1;
     Sleep();
 #if defined(USB_POLLING)
-    //Disable the interrupt
+    /* Disable the interrupt */
     _USB1IP = 0;
 #endif
-    //restore the previous interrupt settings
+    /* restore the previous interrupt settings */
     IEC5bits.USB1IE = USB1IE_save;
     U1EIE = U1EIE_save;
     U1IE = U1IE_save;
@@ -170,6 +170,6 @@ bool USBSleepOnSuspend(void)
     return true;
 }
 
-#endif //__C30__
+#endif /* __C30__ */
 
-#endif //USB_HAL_PIC24F_C
+#endif /* USB_HAL_PIC24F_C */

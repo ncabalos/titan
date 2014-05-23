@@ -28,7 +28,7 @@
 
 #include <adc.h>
 
-//#include <io_mapping.h>
+/* #include <io_mapping.h> */
 
 #define MAIN_RETURN int
 
@@ -65,7 +65,7 @@ void SYSTEM_Initialize( SYSTEM_STATE state );
 * Output: None
 *
 ********************************************************************/
-//void SYSTEM_Tasks(void);
+/* void SYSTEM_Tasks(void); */
 #define SYSTEM_Tasks()
 
-#endif //SYSTEM_H
+#endif /* SYSTEM_H */

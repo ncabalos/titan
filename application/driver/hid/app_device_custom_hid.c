@@ -77,13 +77,13 @@ typedef enum {
 ********************************************************************/
 void APP_DeviceCustomHIDInitialize()
 {
-    //initialize the variable holding the handle for the last
-    // transmission
+    /* initialize the variable holding the handle for the last */
+    /* transmission */
     USBInHandle = 0;
-    //enable the HID endpoint
+    /* enable the HID endpoint */
     USBEnableEndpoint(CUSTOM_DEVICE_HID_EP,
                       USB_IN_ENABLED | USB_OUT_ENABLED | USB_HANDSHAKE_ENABLED | USB_DISALLOW_SETUP);
-    //Re-arm the OUT endpoint for the next packet
+    /* Re-arm the OUT endpoint for the next packet */
     USBOutHandle = (volatile USB_HANDLE)HIDRxPacket(CUSTOM_DEVICE_HID_EP,
                    (uint8_t *)&ReceivedDataBuffer, 64);
 }
@@ -104,42 +104,42 @@ void APP_DeviceCustomHIDInitialize()
 ********************************************************************/
 void APP_DeviceCustomHIDTasks()
 {
-    //Check if we have received an OUT data packet from the host
+    /* Check if we have received an OUT data packet from the host */
     if(HIDRxHandleBusy(USBOutHandle) == false) {
-        //We just received a packet of data from the USB host.
-        //Check the first uint8_t of the packet to see what command the host
-        //application software wants us to fulfill.
-        switch(ReceivedDataBuffer[0]) {			//Look at the data the host sent, to see what kind of application specific command it sent.
-            case COMMAND_TOGGLE_LED:  //Toggle LEDs command
-                //LED_Toggle(LED_USB_DEVICE_HID_CUSTOM);
+        /* We just received a packet of data from the USB host. */
+        /* Check the first uint8_t of the packet to see what command the host */
+        /* application software wants us to fulfill. */
+        switch(ReceivedDataBuffer[0]) {			/* Look at the data the host sent, to see what kind of application specific command it sent. */
+            case COMMAND_TOGGLE_LED:  /* Toggle LEDs command */
+                /* LED_Toggle(LED_USB_DEVICE_HID_CUSTOM); */
                 break;
 
-            case COMMAND_GET_BUTTON_STATUS:  //Get push button state
+            case COMMAND_GET_BUTTON_STATUS:  /* Get push button state */
 
-                //Check to make sure the endpoint/buffer is free before we modify the contents
+                /* Check to make sure the endpoint/buffer is free before we modify the contents */
                 if(!HIDTxHandleBusy(USBInHandle)) {
                     ToSendDataBuffer[0] =
-                        0x81;				//Echo back to the host PC the command we are fulfilling in the first uint8_t.  In this case, the Get Pushbutton State command.
-                    //Prepare the USB module to send the data packet to the host
+                        0x81;				/* Echo back to the host PC the command we are fulfilling in the first uint8_t.  In this case, the Get Pushbutton State command. */
+                    /* Prepare the USB module to send the data packet to the host */
                     USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t *)&ToSendDataBuffer[0],
                                               64);
                 }
 
                 break;
 
-            case COMMAND_READ_POTENTIOMETER: {	//Read POT command.  Uses ADC to measure an analog voltage on one of the ANxx I/O pins, and returns the result to the host
+            case COMMAND_READ_POTENTIOMETER: {	/* Read POT command.  Uses ADC to measure an analog voltage on one of the ANxx I/O pins, and returns the result to the host */
                 uint16_t pot;
 
-                //Check to make sure the endpoint/buffer is free before we modify the contents
+                /* Check to make sure the endpoint/buffer is free before we modify the contents */
                 if(!HIDTxHandleBusy(USBInHandle)) {
-                    //Use ADC to read the I/O pin voltage.  See the relevant HardwareProfile - xxxxx.h file for the I/O pin that it will measure.
-                    //Some demo boards, like the PIC18F87J50 FS USB Plug-In Module board, do not have a potentiometer (when used stand alone).
-                    //This function call will still measure the analog voltage on the I/O pin however.  To make the demo more interesting, it
-                    //is suggested that an external adjustable analog voltage should be applied to this pin.
+                    /* Use ADC to read the I/O pin voltage.  See the relevant HardwareProfile - xxxxx.h file for the I/O pin that it will measure. */
+                    /* Some demo boards, like the PIC18F87J50 FS USB Plug-In Module board, do not have a potentiometer (when used stand alone). */
+                    /* This function call will still measure the analog voltage on the I/O pin however.  To make the demo more interesting, it */
+                    /* is suggested that an external adjustable analog voltage should be applied to this pin. */
                     ToSendDataBuffer[0] =
-                        0x37;  	//Echo back to the host the command we are fulfilling in the first uint8_t.  In this case, the Read POT (analog voltage) command.
+                        0x37;  	/* Echo back to the host the command we are fulfilling in the first uint8_t.  In this case, the Read POT (analog voltage) command. */
                     memcpy(&ToSendDataBuffer[1], &pot, 2);
-                    //Prepare the USB module to send the data packet to the host
+                    /* Prepare the USB module to send the data packet to the host */
                     USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t *)&ToSendDataBuffer[0],
                                               64);
                 }
@@ -147,8 +147,8 @@ void APP_DeviceCustomHIDTasks()
             break;
         }
 
-        //Re-arm the OUT endpoint, so we can receive the next OUT data packet
-        //that the host may try to send us.
+        /* Re-arm the OUT endpoint, so we can receive the next OUT data packet */
+        /* that the host may try to send us. */
         USBOutHandle = HIDRxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t *)&ReceivedDataBuffer,
                                    64);
     }

@@ -1,4 +1,4 @@
-//DOM-IGNORE-BEGIN
+/* DOM-IGNORE-BEGIN */
 /*******************************************************************************
 Software License Agreement
 
@@ -21,7 +21,7 @@ IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL OR
 CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
 
 *******************************************************************************/
-//DOM-IGNORE-END
+/* DOM-IGNORE-END */
 
 #ifndef USB_HAL_PIC24F_H
 #define USB_HAL_PIC24F_H
@@ -54,7 +54,7 @@ CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
 #endif
 
 
-//----- USBEnableEndpoint() input defintions ----------------------------------
+/* ----- USBEnableEndpoint() input defintions ---------------------------------- */
 #define USB_HANDSHAKE_ENABLED           0x01
 #define USB_HANDSHAKE_DISABLED          0x00
 
@@ -69,19 +69,19 @@ CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
 
 #define USB_STALL_ENDPOINT              0x02
 
-//----- usb_config.h input defintions -----------------------------------------
+/* ----- usb_config.h input defintions ----------------------------------------- */
 #define USB_PULLUP_ENABLE               0x00
-//#define USB_PULLUP_DISABLE            0x00
+/* #define USB_PULLUP_DISABLE            0x00 */
 
 #define USB_INTERNAL_TRANSCEIVER        0x00
 #define USB_EXTERNAL_TRANSCEIVER        0x01
 
 #define USB_FULL_SPEED                  0x04
-//USB_LOW_SPEED not currently supported in PIC24F USB products
+/* USB_LOW_SPEED not currently supported in PIC24F USB products */
 
 #define USB_OTG_ENABLE                  0x04
 
-//----- Interrupt Flag definitions --------------------------------------------
+/* ----- Interrupt Flag definitions -------------------------------------------- */
 #define USBTransactionCompleteIE        U1IEbits.TRNIE
 #define USBTransactionCompleteIF        U1IRbits.TRNIF
 #define USBTransactionCompleteIFReg     U1IR
@@ -127,7 +127,7 @@ CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
 #define USBIDIFReg                      U1OTGIR
 #define USBIDIFBitNum                   7
 
-//----- Event call back defintions --------------------------------------------
+/* ----- Event call back defintions -------------------------------------------- */
 #if defined(USB_DISABLE_SOF_HANDLER)
 #define USB_SOF_INTERRUPT           0x00
 #else
@@ -139,24 +139,24 @@ CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
 #define USB_ERROR_INTERRUPT         0x02
 #endif
 
-//----- USB module control bits -----------------------------------------------
+/* ----- USB module control bits ----------------------------------------------- */
 #define USBPingPongBufferReset          U1CONbits.PPBRST
 #define USBSE0Event                     U1CONbits.SE0
 #define USBSuspendControl               U1PWRCbits.USUSPEND
 #define USBPacketDisable                U1CONbits.PKTDIS
 #define USBResumeControl                U1CONbits.RESUME
 
-//----- BDnSTAT bit definitions -----------------------------------------------
-#define _BSTALL                         0x04        //Buffer Stall enable
-#define _DTSEN                          0x08        //Data Toggle Synch enable
-#define _DAT0                           0x00        //DATA0 packet expected next
-#define _DAT1                           0x40        //DATA1 packet expected next
-#define _DTSMASK                        0x40        //DTS Mask
-#define _USIE                           0x80        //SIE owns buffer
-#define _UCPU                           0x00        //CPU owns buffer
+/* ----- BDnSTAT bit definitions ----------------------------------------------- */
+#define _BSTALL                         0x04        /* Buffer Stall enable */
+#define _DTSEN                          0x08        /* Data Toggle Synch enable */
+#define _DAT0                           0x00        /* DATA0 packet expected next */
+#define _DAT1                           0x40        /* DATA1 packet expected next */
+#define _DTSMASK                        0x40        /* DTS Mask */
+#define _USIE                           0x80        /* SIE owns buffer */
+#define _UCPU                           0x00        /* CPU owns buffer */
 #define _STAT_MASK                      0xFC
 
-//----- USTAT bit definitions -------------------------------------------------
+/* ----- USTAT bit definitions ------------------------------------------------- */
 #define USTAT_EP0_PP_MASK               ~0x04
 #define USTAT_EP_MASK                   0xFC
 #define USTAT_EP0_OUT                   0x00
@@ -167,12 +167,12 @@ CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
 #define USTAT_EP0_IN_ODD                0x0C
 #define ENDPOINT_MASK                   0b11110000
 
-//----- U1OTGCON bit definitions ----------------------------------------------
+/* ----- U1OTGCON bit definitions ---------------------------------------------- */
 #define USB_OTG_DPLUS_ENABLE            0x80
 
-//----- U1EP bit definitions --------------------------------------------------
+/* ----- U1EP bit definitions -------------------------------------------------- */
 #define UEP_STALL                       0x0002
-// Cfg Control pipe for this ep
+/* Cfg Control pipe for this ep */
 #define EP_CTRL                         0x0C
 
 
@@ -180,28 +180,28 @@ CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
 #define CTRL_TRF_SETUP_ADDR_TAG
 #define CTRL_TRF_DATA_ADDR_TAG
 
-//----- Depricated defintions - will be removed at some point of time----------
-//--------- Depricated in v2.2
-#define _LS                             0x00        // Use Low-Speed USB Mode
-#define _FS                             0x00        // Use Full-Speed USB Mode
-#define _TRINT                          0x00        // Use internal transceiver
-#define _TREXT                          0x00        // Use external transceiver
-#define _PUEN                           0x00        // Use internal pull-up resistor
-#define _OEMON                          0x00        // Use SIE output indicator
+/* ----- Depricated defintions - will be removed at some point of time---------- */
+/* --------- Depricated in v2.2 */
+#define _LS                             0x00        /* Use Low-Speed USB Mode */
+#define _FS                             0x00        /* Use Full-Speed USB Mode */
+#define _TRINT                          0x00        /* Use internal transceiver */
+#define _TREXT                          0x00        /* Use external transceiver */
+#define _PUEN                           0x00        /* Use internal pull-up resistor */
+#define _OEMON                          0x00        /* Use SIE output indicator */
 
 /*****************************************************************************/
 /****** Type definitions *****************************************************/
 /*****************************************************************************/
 
-// Buffer Descriptor Status Register layout.
+/* Buffer Descriptor Status Register layout. */
 typedef union _BD_STAT {
     struct {
-        unsigned            : 2;    //Byte count
-        unsigned    BSTALL  : 1;    //Buffer Stall Enable
-        unsigned    DTSEN   : 1;    //Data Toggle Synch Enable
-        unsigned            : 2;    //Reserved - write as 00
-        unsigned    DTS     : 1;    //Data Toggle Synch Value
-        unsigned    UOWN    : 1;    //USB Ownership
+        unsigned            : 2;    /* Byte count */
+        unsigned    BSTALL  : 1;    /* Buffer Stall Enable */
+        unsigned    DTSEN   : 1;    /* Data Toggle Synch Enable */
+        unsigned            : 2;    /* Reserved - write as 00 */
+        unsigned    DTS     : 1;    /* Data Toggle Synch Value */
+        unsigned    UOWN    : 1;    /* USB Ownership */
     };
     struct {
         unsigned            : 2;
@@ -212,12 +212,12 @@ typedef union _BD_STAT {
     };
     struct {
         unsigned            : 2;
-        unsigned    PID     : 4;    // Packet Identifier
+        unsigned    PID     : 4;    /* Packet Identifier */
     };
     uint8_t            Val;
-} BD_STAT;                      //Buffer Descriptor Status Register
+} BD_STAT;                      /* Buffer Descriptor Status Register */
 
-// BDT Entry Layout
+/* BDT Entry Layout */
 typedef union __BDT {
     union {
         struct {
@@ -225,16 +225,16 @@ typedef union __BDT {
             BD_STAT     STAT __attribute__ ((packed));
         };
         struct {
-            uint16_t        count: 10;  //test
+            uint16_t        count: 10;  /* test */
             uint8_t        : 6;
-            uint16_t        ADR; //Buffer Address
+            uint16_t        ADR; /* Buffer Address */
         };
     };
     uint32_t           Val;
     uint16_t            v[2];
 } BDT_ENTRY;
 
-// USTAT Register Layout
+/* USTAT Register Layout */
 typedef union __USTAT {
     struct {
         unsigned char filler1           : 2;
@@ -245,7 +245,7 @@ typedef union __USTAT {
     uint8_t Val;
 } USTAT_FIELDS;
 
-//Macros for fetching parameters from a USTAT_FIELDS variable.
+/* Macros for fetching parameters from a USTAT_FIELDS variable. */
 #define USBHALGetLastEndpoint(stat)     stat.endpoint_number
 #define USBHALGetLastDirection(stat)    stat.direction
 #define USBHALGetLastPingPong(stat)     stat.ping_pong
@@ -255,24 +255,24 @@ typedef union _POINTER {
     struct {
         uint8_t bLow;
         uint8_t bHigh;
-        //byte bUpper;
+        /* byte bUpper; */
     };
-    uint16_t _word;                         // bLow & bHigh
+    uint16_t _word;                         /* bLow & bHigh */
 
-    //pFunc _pFunc;                       // Usage: ptr.pFunc(); Init: ptr.pFunc = &<Function>;
+    /* pFunc _pFunc;                       /* Usage: ptr.pFunc(); Init: ptr.pFunc = &<Function>; */ */
 
-    uint8_t * bRam;                        // Ram byte pointer: 2 bytes pointer pointing
-    // to 1 byte of data
+    uint8_t * bRam;                        /* Ram byte pointer: 2 bytes pointer pointing */
+    /* to 1 byte of data */
     uint16_t *
-    wRam;                        // Ram word poitner: 2 bytes poitner pointing
-    // to 2 bytes of data
+    wRam;                        /* Ram word poitner: 2 bytes poitner pointing */
+    /* to 2 bytes of data */
 
-    const uint8_t * bRom;                    // Size depends on compiler setting
+    const uint8_t * bRom;                    /* Size depends on compiler setting */
     const uint16_t * wRom;
-    //rom near byte* nbRom;               // Near = 2 bytes pointer
-    //rom near word* nwRom;
-    //rom far byte* fbRom;                // Far = 3 bytes pointer
-    //rom far word* fwRom;
+    /* rom near byte* nbRom;               /* Near = 2 bytes pointer */ */
+    /* rom near word* nwRom; */
+    /* rom far byte* fbRom;                /* Far = 3 bytes pointer */ */
+    /* rom far word* fwRom; */
 } POINTER;
 
 /*****************************************************************************/
@@ -290,7 +290,7 @@ typedef union _POINTER {
 #define USBUnmaskInterrupts()
 #endif
 
-//STALLIE, IDLEIE, TRNIE, and URSTIE are all enabled by default and are required
+/* STALLIE, IDLEIE, TRNIE, and URSTIE are all enabled by default and are required */
 #if defined(USB_INTERRUPT)
 #define USBEnableInterrupts() {IEC5bits.USB1IE=1;}
 #else
@@ -483,7 +483,7 @@ bool USBSleepOnSuspend(void);
 /****** Compiler checks ******************************************************/
 /*****************************************************************************/
 
-//Definitions for the BDT
+/* Definitions for the BDT */
 #ifndef USB_PING_PONG_MODE
 #error "No ping pong mode defined."
 #endif
@@ -494,7 +494,7 @@ bool USBSleepOnSuspend(void);
 
 #if defined(USB_SUPPORT_DEVICE) | defined(USB_SUPPORT_OTG)
 #if !defined(USBDEVICE_C)
-//extern USB_VOLATILE USB_DEVICE_STATE USBDeviceState;
+/* extern USB_VOLATILE USB_DEVICE_STATE USBDeviceState; */
 extern USB_VOLATILE uint8_t USBActiveConfiguration;
 extern USB_VOLATILE IN_PIPE inPipes[1];
 extern USB_VOLATILE OUT_PIPE outPipes[1];
@@ -503,4 +503,4 @@ extern volatile BDT_ENTRY * pBDTEntryOut[USB_MAX_EP_NUMBER + 1];
 extern volatile BDT_ENTRY * pBDTEntryIn[USB_MAX_EP_NUMBER + 1];
 #endif
 
-#endif //USB_HAL_PIC24F_H
+#endif /* USB_HAL_PIC24F_H */

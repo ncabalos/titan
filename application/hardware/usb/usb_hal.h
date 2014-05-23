@@ -6,11 +6,11 @@
 #include "usb_hal_pic24f.h"
 
 /* USBHALControlUsbResistors flags */
-#define USB_HAL_PULL_UP_D_PLUS  0x80    // Pull D+ line high
-#define USB_HAL_PULL_UP_D_MINUS 0x40    // Pull D- line high
-#define USB_HAL_PULL_DN_D_PLUS  0x20    // Pull D+ line low
-#define USB_HAL_PULL_DN_D_MINUS 0x10    // Pull D- line low
-/*
+#define USB_HAL_PULL_UP_D_PLUS  0x80    /* Pull D+ line high */
+#define USB_HAL_PULL_UP_D_MINUS 0x40    /* Pull D- line high */
+#define USB_HAL_PULL_DN_D_PLUS  0x20    /* Pull D+ line low */
+#define USB_HAL_PULL_DN_D_MINUS 0x10    /* Pull D- line low */
+/* 
  The following are defined for convenience:
  */
 #define USB_HAL_DEV_CONN_FULL_SPD       USB_HAL_PULL_UP_D_PLUS
@@ -18,58 +18,58 @@
 #define USB_HAL_DEV_DISCONNECT          0
 
 /* USBHALControlBusPower Commands */
-#define USB_VBUS_DISCHARGE  0       // Dicharge Vbus via resistor
-#define USB_VBUS_CHARGE     1       // Charge Vbus via resistor
-#define USB_VBUS_POWER_ON   3       // Supply power to Vbus
-#define USB_VBUS_POWER_OFF  4       // Do not supply power to Vbus
+#define USB_VBUS_DISCHARGE  0       /* Dicharge Vbus via resistor */
+#define USB_VBUS_CHARGE     1       /* Charge Vbus via resistor */
+#define USB_VBUS_POWER_ON   3       /* Supply power to Vbus */
+#define USB_VBUS_POWER_OFF  4       /* Do not supply power to Vbus */
 
-/*
+/* 
  USBHALGetLastError Error Bits.
  */
-#define USBHAL_PID_ERR  0x00000001  // Packet ID Error
-#define USBHAL_CRC5     0x00000002  // (Host) Token CRC5 check failed
-#define USBHAL_HOST_EOF 0x00000002  // (Host) EOF not reached before next SOF
-#define USBHAL_CRC16    0x00000004  // Data packet CRC error
-#define USBHAL_DFN8     0x00000008  // Data field size not n*8 bits
-#define USBHAL_BTO_ERR  0x00000010  // Bus turn-around timeout
-#define USBHAL_DMA_ERR  0x00000020  // DMA error, unable to read/write memory
-#define USBHAL_BTS_ERR  0x00000080  // Bit-stuffing error
-#define USBHAL_XFER_ID  0x00000100  // Unable to identify transfer EP
-#define USBHAL_NO_EP    0x00000200  // Invalid endpoint number
-#define USBHAL_DMA_ERR2 0x00000400  // Error starting DMA transaction
+#define USBHAL_PID_ERR  0x00000001  /* Packet ID Error */
+#define USBHAL_CRC5     0x00000002  /* (Host) Token CRC5 check failed */
+#define USBHAL_HOST_EOF 0x00000002  /* (Host) EOF not reached before next SOF */
+#define USBHAL_CRC16    0x00000004  /* Data packet CRC error */
+#define USBHAL_DFN8     0x00000008  /* Data field size not n*8 bits */
+#define USBHAL_BTO_ERR  0x00000010  /* Bus turn-around timeout */
+#define USBHAL_DMA_ERR  0x00000020  /* DMA error, unable to read/write memory */
+#define USBHAL_BTS_ERR  0x00000080  /* Bit-stuffing error */
+#define USBHAL_XFER_ID  0x00000100  /* Unable to identify transfer EP */
+#define USBHAL_NO_EP    0x00000200  /* Invalid endpoint number */
+#define USBHAL_DMA_ERR2 0x00000400  /* Error starting DMA transaction */
 
 /* Flags for USBHALSetEpConfiguration */
 #if defined(__18CXX) || defined(__XC8)
-#define USB_HAL_TRANSMIT    0x0400  // Enable EP for transmitting data
-#define USB_HAL_RECEIVE     0x0200  // Enable EP for receiving data
-#define USB_HAL_HANDSHAKE   0x1000  // Enable EP to give ACK/NACK (non isoch)
+#define USB_HAL_TRANSMIT    0x0400  /* Enable EP for transmitting data */
+#define USB_HAL_RECEIVE     0x0200  /* Enable EP for receiving data */
+#define USB_HAL_HANDSHAKE   0x1000  /* Enable EP to give ACK/NACK (non isoch) */
 
-#define USB_HAL_NO_INC      0x0010  // Use for DMA to another device FIFO
-#define USB_HAL_HW_KEEPS    0x0020  // Cause HW to keep EP
+#define USB_HAL_NO_INC      0x0010  /* Use for DMA to another device FIFO */
+#define USB_HAL_HW_KEEPS    0x0020  /* Cause HW to keep EP */
 #else
-#define USB_HAL_TRANSMIT    0x0400  // Enable EP for transmitting data
-#define USB_HAL_RECEIVE     0x0800  // Enable EP for receiving data
-#define USB_HAL_HANDSHAKE   0x0100  // Enable EP to give ACK/NACK (non isoch)
+#define USB_HAL_TRANSMIT    0x0400  /* Enable EP for transmitting data */
+#define USB_HAL_RECEIVE     0x0800  /* Enable EP for receiving data */
+#define USB_HAL_HANDSHAKE   0x0100  /* Enable EP to give ACK/NACK (non isoch) */
 
 /* Does not work, Fix this if needed. 3/1/07 - Bud
-#define USB_HAL_NO_INC      0x0010  // Use for DMA to another device FIFO
-#define USB_HAL_HW_KEEPS    0x0020  // Cause HW to keep EP
+#define USB_HAL_NO_INC      0x0010  /* Use for DMA to another device FIFO */
+#define USB_HAL_HW_KEEPS    0x0020  /* Cause HW to keep EP */
 */
-#define USB_HAL_ALLOW_HUB   0x8000  // (host only) Enable low-spd hub support
-#define USB_HAL_NO_RETRY    0x4000  // (host only) disable auto-retry on NACK
+#define USB_HAL_ALLOW_HUB   0x8000  /* (host only) Enable low-spd hub support */
+#define USB_HAL_NO_RETRY    0x4000  /* (host only) disable auto-retry on NACK */
 #endif
-// *****************************************************************************
-// *****************************************************************************
-// Section: Data Types
-// *****************************************************************************
-// *****************************************************************************
+/****************************************************************************** */
+/****************************************************************************** */
+/* Section: Data Types */
+/****************************************************************************** */
+/****************************************************************************** */
 
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Interface Routines
-// *****************************************************************************
-// *****************************************************************************
+/****************************************************************************** */
+/****************************************************************************** */
+/* Section: Interface Routines */
+/****************************************************************************** */
+/****************************************************************************** */
 
 /*************************************************************************
     Function:
@@ -101,7 +101,7 @@
         a SET_ADDRESS setup request.
 
  *************************************************************************/
-/*
+/* 
  This routine is implemented as a macro to a lower-level level routine.
  */
 
@@ -139,7 +139,7 @@ void USBHALSetBusAddress( uint8_t addr );
 
  *************************************************************************/
 
-/*
+/* 
  This routine is implemented as a macro to a lower-level level routine.
  */
 #if defined(__18CXX) || defined(__XC8)
@@ -149,7 +149,7 @@ void USBHALControlUsbResistors( uint8_t flags );
 void USBHALControlUsbResistors( uint8_t flags );
 #endif
 
-/*
+/* 
  MCHP: Define a method to check for SE0 & a way to send a reset (SE0).
  */
 
@@ -300,7 +300,7 @@ void USBHALHandleBusEvent ( void );
         "un-stalls" the endpoint.
 
  *************************************************************************/
-/*
+/* 
  Note: This function is implemented as a macro, calling directly into
  an internal HAL routine.
  */
@@ -337,7 +337,7 @@ bool USBHALStallPipe( TRANSFER_FLAGS pipe );
         None
 
  *****************************************************************************/
-/*
+/* 
  Note: This function is implemented as a macro, calling directly into
  an internal HAL routine.
  */
@@ -371,7 +371,7 @@ bool USBHALUnstallPipe( TRANSFER_FLAGS pipe );
         None
  *************************************************************************/
 
-/*
+/* 
  Note: This function is implemented as a macro, calling directly into
  a HAL routine.
  */
@@ -546,7 +546,7 @@ bool USBHALSetEpConfiguration ( uint8_t ep_num, uint16_t max_pkt_size,
 
 bool USBHALInitialize ( unsigned long flags );
 
-#endif  // _USB_HAL_H_
+#endif  /* _USB_HAL_H_ */
 /*************************************************************************
  * EOF
  */
