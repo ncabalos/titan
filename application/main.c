@@ -5,6 +5,9 @@
 #include "p24Fxxxx.h"
 #include "hardware_config.h"
 
+#include "hardware/usb/usb.h"
+#include "hardware/usb/usb_device_hid.h"
+
 #include "queue.h"
 #include "uckernel/uckernel.h"
 
@@ -39,6 +42,8 @@ int main(void)
 {
     /* Initialize hardware */
     init_hardware_pins();
+    USBDeviceInit();
+    USBDeviceAttach();
     T1CONbits.TON = 1;
     IEC0bits.T1IE = 1;
     /* uckernel Initialize */
@@ -56,7 +61,60 @@ int main(void)
     for(;;) {
         /* Run uckernel_event_loop */
         uckernel_event_loop();
+#if defined(USB_POLLING)
+        // Interrupt or polling method.  If using polling, must call
+        // this function periodically.  This function will take care
+        // of processing and responding to SETUP transactions
+        // (such as during the enumeration process when you first
+        // plug in).  USB hosts require that USB devices should accept
+        // and process SETUP packets in a timely fashion.  Therefore,
+        // when using polling, this function should be called
+        // regularly (such as once every 1.8ms or faster** [see
+        // inline code comments in usb_device.c for explanation when
+        // "or faster" applies])  In most cases, the USBDeviceTasks()
+        // function does not take very long to execute (ex: <100
+        // instruction cycles) before it returns.
+        USBDeviceTasks();
+#endif
     }
 
     return 0;
+}
+
+bool USER_USB_CALLBACK_EVENT_HANDLER(USB_EVENT event, void * pdata,
+                                     uint16_t size)
+{
+    switch((int)event) {
+        case EVENT_TRANSFER:
+            break;
+
+        case EVENT_SOF:
+            break;
+
+        case EVENT_SUSPEND:
+            break;
+
+        case EVENT_RESUME:
+            break;
+
+        case EVENT_CONFIGURED:
+            break;
+
+        case EVENT_SET_DESCRIPTOR:
+            break;
+
+        case EVENT_EP0_REQUEST:
+            break;
+
+        case EVENT_BUS_ERROR:
+            break;
+
+        case EVENT_TRANSFER_TERMINATED:
+            break;
+
+        default:
+            break;
+    }
+
+    return true;
 }
