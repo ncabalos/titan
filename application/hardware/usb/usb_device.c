@@ -31,10 +31,10 @@
 #endif
 
 #if !defined(USE_USB_BUS_SENSE_IO)
-/* 
-Assume the +5V VBUS is always present (like it would be in a bus powered only 
-application), unless USE_USB_BUS_SENSE_IO and USB_BUS_SENSE have been properly 
-defined elsewhere in the project. 
+/*
+Assume the +5V VBUS is always present (like it would be in a bus powered only
+application), unless USE_USB_BUS_SENSE_IO and USB_BUS_SENSE have been properly
+defined elsewhere in the project.
 */
 #undef USB_BUS_SENSE
 #define USB_BUS_SENSE 1
@@ -47,27 +47,27 @@ defined elsewhere in the project.
 #endif
 
 #if !defined(self_power)
-/* 
-Assume the application is always bus powered, unless self_power has been defined 
-elsewhere in the project 
+/*
+Assume the application is always bus powered, unless self_power has been defined
+elsewhere in the project
 */
 #define self_power 0    /* 0 = bus powered */
 #endif
 
 #if !defined(USB_MAX_NUM_CONFIG_DSC)
-/* 
-Assume the application only implements one configuration descriptor, unless 
-otherwise specified elsewhere in the project 
+/*
+Assume the application only implements one configuration descriptor, unless
+otherwise specified elsewhere in the project
 */
 #define USB_MAX_NUM_CONFIG_DSC      1
 #endif
 
 #if defined(__XC8)
-/* 
-Suppress expected/harmless compiler warning message about unused RAM variables. 
-Certain variables are not used if you don't use all of the USB stack APIs. These 
-variables should not be removed (since they are still used/needed in some 
-applications). 
+/*
+Suppress expected/harmless compiler warning message about unused RAM variables.
+Certain variables are not used if you don't use all of the USB stack APIs. These
+variables should not be removed (since they are still used/needed in some
+applications).
 */
 #pragma warning disable 1090
 #endif
@@ -129,16 +129,16 @@ volatile uint8_t CtrlTrfData[USB_EP0_BUFF_SIZE] CTRL_TRF_DATA_ADDR_TAG;
  * non-EP0 Buffer Space
  *******************************************************************/
 #if defined(USB_USE_MSD)
-/* 
-Check if the MSD application specific USB endpoint buffer placement address 
+/*
+Check if the MSD application specific USB endpoint buffer placement address
 macros have already been defined or not (ex: in a processor specific header)
 The msd_cbw and msd_csw buffers must be USB module accessible (and therefore
-must be at a certain address range on certain microcontrollers). 
+must be at a certain address range on certain microcontrollers).
 */
 #if !defined(MSD_CBW_ADDR_TAG)
-/* 
-Not previously defined.  Assume in this case all microcontroller RAM is USB 
-module accessible, and therefore, no specific address tag value is needed. 
+/*
+Not previously defined.  Assume in this case all microcontroller RAM is USB
+module accessible, and therefore, no specific address tag value is needed.
 */
 #define MSD_CBW_ADDR_TAG
 #define MSD_CSW_ADDR_TAG
@@ -286,9 +286,9 @@ void USBDeviceInit(void)
         outPipes[0].wCount.Val = 0;
     }
 
-    /* 
-    Set flags to true, so the USBCtrlEPAllowStatusStage() function knows not to 
-    try and arm a status stage, even before the first control transfer starts. 
+    /*
+    Set flags to true, so the USBCtrlEPAllowStatusStage() function knows not to
+    try and arm a status stage, even before the first control transfer starts.
     */
     USBStatusStageEnabledFlag1 = true;
     USBStatusStageEnabledFlag2 = true;
@@ -522,7 +522,7 @@ void USBDeviceTasks(void)
 #endif  /* #if defined(USB_POLLING) */
 
     if(USBDeviceState == ATTACHED_STATE) {
-        /* 
+        /*
          * After enabling the USB module, it takes some time for the
          * voltage on the D+ or D- line to rise high enough to get out
          * of the SE0 condition. The USB Reset interrupt should not be
@@ -552,7 +552,7 @@ void USBDeviceTasks(void)
 
 #endif
 
-    /* 
+    /*
      * Task A: Service USB Activity Interrupt
      */
     if(USBActivityIF && USBActivityIE) {
@@ -564,7 +564,7 @@ void USBDeviceTasks(void)
 #endif
     }
 
-    /* 
+    /*
      * Pointless to continue servicing if the device is in suspend mode.
      */
     if(USBSuspendControl == 1) {
@@ -572,7 +572,7 @@ void USBDeviceTasks(void)
         return;
     }
 
-    /* 
+    /*
      * Task B: Service USB Bus Reset Interrupt.
      * When bus reset is received during suspend, ACTVIF will be set first,
      * once the UCONbits.SUSPND is clear, then the URSTIF bit will be asserted.
@@ -597,7 +597,7 @@ void USBDeviceTasks(void)
         USBClearInterruptFlag(USBResetIFReg, USBResetIFBitNum);
     }
 
-    /* 
+    /*
      * Task C: Service other USB interrupts
      */
     if(USBIdleIF && USBIdleIE) {
@@ -670,7 +670,7 @@ void USBDeviceTasks(void)
 #endif
     }
 
-    /* 
+    /*
      * Pointless to continue servicing if the host has not sent a bus reset.
      * Once bus reset is received, the device transitions into the DEFAULT
      * state and is ready for communication.
@@ -680,7 +680,7 @@ void USBDeviceTasks(void)
         return;
     }
 
-    /* 
+    /*
      * Task D: Servicing USB Transaction Complete Interrupt
      */
     if(USBTransactionCompleteIE) {
@@ -1018,12 +1018,12 @@ void USBCancelIO(uint8_t endpoint)
         /* The PKTDIS bit is currently set right now.  It is therefore "safe" */
         /* to mess with the BDT right now. */
         pBDTEntryIn[endpoint]->Val &=
-            _DTSMASK;	/* Makes UOWN = 0 (_UCPU mode).  Deactivates endpoint.  
+            _DTSMASK;	/* Makes UOWN = 0 (_UCPU mode).  Deactivates endpoint.
                             Only sends NAKs. */
         pBDTEntryIn[endpoint]->Val ^=
-            _DTSMASK;	/* Toggle the DTS bit.  This packet didn't get sent yet, 
-                            and the next call to USBTransferOnePacket() will 
-                            re-toggle the DTS bit back to the original (correct) 
+            _DTSMASK;	/* Toggle the DTS bit.  This packet didn't get sent yet,
+                            and the next call to USBTransferOnePacket() will
+                            re-toggle the DTS bit back to the original (correct)
                             value. */
         /* Need to do additional handling if ping-pong buffering is being used */
 #if ((USB_PING_PONG_MODE == USB_PING_PONG__FULL_PING_PONG) || (USB_PING_PONG_MODE == USB_PING_PONG__ALL_BUT_EP0))
@@ -1411,7 +1411,8 @@ static void USBConfigureEndpoint(uint8_t EPNum, uint8_t direction)
     volatile BDT_ENTRY * handle;
     /* Compute a pointer to the even BDT entry corresponding to the */
     /* EPNum and direction values passed to this function. */
-    handle = (volatile BDT_ENTRY *)&BDT[EP0_OUT_EVEN]; /* Get address of start of BDT */
+    handle = (volatile BDT_ENTRY *)
+             &BDT[EP0_OUT_EVEN]; /* Get address of start of BDT */
     handle += EP(EPNum, direction, 0u);   /* Add in offset to the BDT of interest */
     handle->STAT.UOWN = 0;  /* mostly redundant, since USBStdSetCfgHandler() */
     /* already cleared the entire BDT table */
@@ -1478,7 +1479,7 @@ static void USBConfigureEndpoint(uint8_t EPNum, uint8_t direction)
  *****************************************************************************/
 static void USBCtrlEPServiceComplete(void)
 {
-    /* 
+    /*
      * PKTDIS bit is set when a Setup Transaction is received.
      * Clear to resume packet processing.
      */
@@ -1491,7 +1492,7 @@ static void USBCtrlEPServiceComplete(void)
     if(inPipes[0].info.bits.busy == 0) {
         if(outPipes[0].info.bits.busy == 1) {
             controlTransferState = CTRL_TRF_RX;
-            /* 
+            /*
              * Control Write:
              * <SETUP[0]><OUT[1]><OUT[0]>...<IN[1]> | <SETUP[0]>
              */
@@ -1510,7 +1511,7 @@ static void USBCtrlEPServiceComplete(void)
             USBStatusStageEnabledFlag2 = false;
             USBStatusStageEnabledFlag1 = false;
         } else {
-            /* 
+            /*
              * If no one knows how to service this request then stall.
              * Must also prepare EP0 to receive the next SETUP transaction.
              */
@@ -1526,7 +1527,7 @@ static void USBCtrlEPServiceComplete(void)
         if(SetupPkt.DataDir == USB_SETUP_DEVICE_TO_HOST_BITFIELD) {
             controlTransferState = CTRL_TRF_TX;
 
-            /* 
+            /*
              * Control Read:
              * <SETUP[0]><IN[1]><IN[0]>...<OUT[1]> | <SETUP[0]>
              *
@@ -1955,7 +1956,7 @@ static void USBStdGetStatusHandler(void)
         case USB_SETUP_RECIPIENT_DEVICE_BITFIELD:
             inPipes[0].info.bits.busy = 1;
 
-            /* 
+            /*
              * [0]: bit0: Self-Powered Status [0] Bus-Powered [1] Self-Powered
              *      bit1: RemoteWakeup        [0] Disabled    [1] Enabled
              */
@@ -1975,7 +1976,7 @@ static void USBStdGetStatusHandler(void)
 
         case USB_SETUP_RECIPIENT_ENDPOINT_BITFIELD:
             inPipes[0].info.bits.busy = 1;
-            /* 
+            /*
              * [0]: bit0: Halt Status [0] Not Halted [1] Halted
              */
             {
@@ -2019,7 +2020,7 @@ static void USBStdGetStatusHandler(void)
  *******************************************************************/
 static void USBStallHandler(void)
 {
-    /* 
+    /*
      * Does not really have to do anything here,
      * even for the control endpoint.
      * All BDs of Endpoint 0 are owned by SIE right now,
@@ -2062,7 +2063,7 @@ static void USBStallHandler(void)
  *******************************************************************/
 static void USBSuspend(void)
 {
-    /* 
+    /*
      * NOTE: Do not clear UIRbits.ACTVIF here!
      * Reason:
      * ACTVIF is only generated once an IDLEIF has been generated.
@@ -2092,7 +2093,7 @@ static void USBSuspend(void)
     /* mode, SIE clock inactive */
 #endif
     USBBusIsSuspended = true;
-    /* 
+    /*
      * At this point the PIC can go into sleep,idle, or
      * switch to a slower clock, etc.  This should be done in the
      * USBCBSuspend() if necessary.
@@ -2118,7 +2119,7 @@ static void USBSuspend(void)
 static void USBWakeFromSuspend(void)
 {
     USBBusIsSuspended = false;
-    /* 
+    /*
      * If using clock switching, the place to restore the original
      * microcontroller core clock frequency is in the USBCBWakeFromSuspend() callback
      */
@@ -2471,7 +2472,8 @@ static void USBCheckStdRequest(void)
             break;
 
         case USB_REQUEST_GET_CONFIGURATION:
-            inPipes[0].pSrc.bRam = (uint8_t *)&USBActiveConfiguration;        /* Set Source */
+            inPipes[0].pSrc.bRam = (uint8_t *)
+                                   &USBActiveConfiguration;        /* Set Source */
             inPipes[0].info.bits.ctrl_trf_mem =
                 USB_EP0_RAM;               /* Set memory type */
             inPipes[0].wCount.v[0] = 1;                         /* Set data count */

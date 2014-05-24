@@ -113,29 +113,29 @@ typedef enum {
     /* to what to do if this request is received. (device) */
     EVENT_EP0_REQUEST,
 
-/*    \* A USB transfer has completed.  The data associated with this event is of *\ */
-/*    \* the data type HOST_TRANSFER_DATA if the event is generated from the host *\ */
-/*    \* stack. *\ */
-/*    EVENT_TRANSFER, */
-/**/
-/*    \* A USB Start of Frame token has been received.  This event is not *\ */
-/*    \* used by the Host stack. *\ */
-/*    EVENT_SOF, */
-/**/
-/*    \* Device-mode resume received.  This event is not used by the Host stack. *\ */
-/*    EVENT_RESUME, */
-/**/
-/*    \* Device-mode suspend/idle event received.  This event is not used by the *\ */
-/*    \* Host stack. *\ */
-/*    EVENT_SUSPEND, */
-/**/
-/*    \* Device-mode bus reset received.  This event is not used by the Host *\ */
-/*    \* stack. *\ */
-/*    EVENT_RESET, */
+    /*    \* A USB transfer has completed.  The data associated with this event is of *\ */
+    /*    \* the data type HOST_TRANSFER_DATA if the event is generated from the host *\ */
+    /*    \* stack. *\ */
+    /*    EVENT_TRANSFER, */
+    /**/
+    /*    \* A USB Start of Frame token has been received.  This event is not *\ */
+    /*    \* used by the Host stack. *\ */
+    /*    EVENT_SOF, */
+    /**/
+    /*    \* Device-mode resume received.  This event is not used by the Host stack. *\ */
+    /*    EVENT_RESUME, */
+    /**/
+    /*    \* Device-mode suspend/idle event received.  This event is not used by the *\ */
+    /*    \* Host stack. *\ */
+    /*    EVENT_SUSPEND, */
+    /**/
+    /*    \* Device-mode bus reset received.  This event is not used by the Host *\ */
+    /*    \* stack. *\ */
+    /*    EVENT_RESET, */
 
-/*    \* Device Mode: A setup packet received (data: SETUP_PKT).  This event is *\ */
-/*    \* not used by the Host stack. *\ */
-/*    EVENT_SETUP, */
+    /*    \* Device Mode: A setup packet received (data: SETUP_PKT).  This event is *\ */
+    /*    \* not used by the Host stack. *\ */
+    /*    EVENT_SETUP, */
 
     /* Device-mode USB cable has been attached.  This event is not used by the */
     /* Host stack.  The client driver may provide an application event when a */
@@ -1835,13 +1835,13 @@ typedef struct __attribute__ ((packed))
     union __attribute__ ((packed)) {
         struct __attribute__ ((packed)) {
             /* is this transfer from RAM or const? */
-            uint8_t ctrl_trf_mem          : 1;
-            uint8_t reserved              : 5;
+            unsigned ctrl_trf_mem          : 1;
+            unsigned reserved              : 5;
             /* include a zero length packet after */
             /* data is done if data_size%ep_size = 0? */
-            uint8_t includeZero           : 1;
+            unsigned includeZero           : 1;
             /* is this PIPE currently in use */
-            uint8_t busy                  : 1;
+            unsigned busy                  : 1;
         }
         bits;
         uint8_t Val;
@@ -1864,9 +1864,9 @@ typedef struct __attribute__ ((packed))
     pDst;
     union __attribute__ ((packed)) {
         struct __attribute__ ((packed)) {
-            uint8_t reserved              : 7;
+            unsigned reserved              : 7;
             /* is this PIPE currently in use */
-            uint8_t busy                  : 1;
+            unsigned busy                  : 1;
         }
         bits;
         uint8_t Val;

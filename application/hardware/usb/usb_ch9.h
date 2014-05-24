@@ -307,9 +307,9 @@ typedef union __attribute__ ((packed))
             /* ------   ------------------------ */
             uint8_t bmRequestType;         /*   0      Bit-map of request type */
             struct {
-                uint8_t    recipient:  5;  /*          Recipient of the request */
-                uint8_t    type:       2;  /*          Type of request */
-                uint8_t    direction:  1;  /*          Direction of data X-fer */
+                unsigned    recipient:  5;  /*          Recipient of the request */
+                unsigned    type:       2;  /*          Type of request */
+                unsigned    direction:  1;  /*          Direction of data X-fer */
             };
         } requestInfo;
     };

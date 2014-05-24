@@ -127,7 +127,8 @@ void APP_DeviceCustomHIDTasks()
 
                 break;
 
-            case COMMAND_READ_POTENTIOMETER: {	/* Read POT command.  Uses ADC to measure an analog voltage on one of the ANxx I/O pins, and returns the result to the host */
+            case COMMAND_READ_POTENTIOMETER:
+            {	/* Read POT command.  Uses ADC to measure an analog voltage on one of the ANxx I/O pins, and returns the result to the host */
                 uint16_t pot;
 
                 /* Check to make sure the endpoint/buffer is free before we modify the contents */

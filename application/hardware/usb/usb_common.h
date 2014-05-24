@@ -119,11 +119,11 @@ and properties of the data transfer.
 typedef union {
     uint8_t    bitmap;
     struct {
-        uint8_t ep_num:    4;
-        uint8_t zero_pkt:  1;
-        uint8_t dts:       1;
-        uint8_t force_dts: 1;
-        uint8_t direction: 1;
+        unsigned ep_num:    4;
+        unsigned zero_pkt:  1;
+        unsigned dts:       1;
+        unsigned force_dts: 1;
+        unsigned direction: 1;
     } field;
 
 } TRANSFER_FLAGS;

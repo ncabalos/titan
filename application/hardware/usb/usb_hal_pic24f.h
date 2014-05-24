@@ -226,7 +226,7 @@ typedef union __BDT {
         };
         struct {
             uint16_t        count: 10;  /* test */
-            uint8_t        : 6;
+            uint16_t        : 6;
             uint16_t        ADR; /* Buffer Address */
         };
     };
@@ -237,10 +237,10 @@ typedef union __BDT {
 /* USTAT Register Layout */
 typedef union __USTAT {
     struct {
-        unsigned char filler1           : 2;
-        unsigned char ping_pong         : 1;
-        unsigned char direction         : 1;
-        unsigned char endpoint_number   : 4;
+        unsigned filler1           : 2;
+        unsigned ping_pong         : 1;
+        unsigned direction         : 1;
+        unsigned endpoint_number   : 4;
     };
     uint8_t Val;
 } USTAT_FIELDS;
@@ -258,9 +258,9 @@ typedef union _POINTER {
     };
     uint16_t _word;             /* bLow & bHigh */
     uint8_t * bRam;             /* Ram byte pointer: 2 bytes pointer pointing */
-                                /* to 1 byte of data */
+    /* to 1 byte of data */
     uint16_t * wRam;            /* Ram word poitner: 2 bytes poitner pointing */
-                                /* to 2 bytes of data */
+    /* to 2 bytes of data */
     const uint8_t * bRom;       /* Size depends on compiler setting */
     const uint16_t * wRom;
 } POINTER;

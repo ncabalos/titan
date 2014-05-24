@@ -158,7 +158,7 @@ void USBCheckHIDRequest(void)
 
     if(SetupPkt.bIntfID != HID_INTF_ID) return;
 
-    /* 
+    /*
      * There are two standard requests that hid.c may support.
      * 1. GET_DSC(DSC_HID,DSC_RPT,DSC_PHY);
      * 2. SET_DSC(DSC_HID,DSC_RPT,DSC_PHY);

@@ -65,7 +65,7 @@ void servo_init(void)
     servo_state = SERVO_STATE_START;
     servo_value = 500;
     servo_channel = 0;
-    /* 
+    /*
      * this is where we initialize the timer that will be used by the servo
      * module. Lets use timer (TBD)
      */

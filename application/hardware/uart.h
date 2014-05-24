@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   uart.h
  * Author: ncabalos
  *

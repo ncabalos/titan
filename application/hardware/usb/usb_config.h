@@ -3,7 +3,7 @@
 
 #include "usb_ch9.h"
 
-#define USB_EP0_BUFF_SIZE		8	
+#define USB_EP0_BUFF_SIZE		8
 #define USB_MAX_NUM_INT     	1
 #define USB_MAX_EP_NUMBER	    1
 
