@@ -178,14 +178,14 @@ const uint8_t configDescriptor1[] = {
     /* Endpoint Descriptor */
     0x07,                           /* sizeof(USB_EP_DSC)*/
     USB_DESCRIPTOR_ENDPOINT,        /* Endpoint Descriptor */
-    CUSTOM_DEVICE_HID_EP | _EP_IN,  /* EndpointAddress */
+    TITANCONTROLLER_HID_EP | _EP_IN,  /* EndpointAddress */
     _INTERRUPT,                     /* Attributes */
     0x40, 0x00,                     /* size */
     0x01,                           /* Interval */
     /* Endpoint Descriptor */
     0x07,                           /* sizeof(USB_EP_DSC)*/
     USB_DESCRIPTOR_ENDPOINT,        /* Endpoint Descriptor */
-    CUSTOM_DEVICE_HID_EP | _EP_OUT, /* EndpointAddress */
+    TITANCONTROLLER_HID_EP | _EP_OUT, /* EndpointAddress */
     _INTERRUPT,                     /* Attributes */
     0x40, 0x00,                     /* size */
     0x01                            /* Interval */
