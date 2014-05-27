@@ -48,8 +48,8 @@
 
 typedef union {
     struct {
-        unsigned char ping_pong_state : 1;
-        unsigned char transfer_terminated : 1;
+        unsigned ping_pong_state : 1;
+        unsigned transfer_terminated : 1;
     } bits;
     uint8_t Val;
 } EP_STATUS;

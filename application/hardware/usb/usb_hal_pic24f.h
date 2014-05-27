@@ -202,18 +202,18 @@ typedef union _BD_STAT {
         unsigned            : 2;    /* Reserved - write as 00 */
         unsigned    DTS     : 1;    /* Data Toggle Synch Value */
         unsigned    UOWN    : 1;    /* USB Ownership */
-    };
+    }bits;
     struct {
         unsigned            : 2;
         unsigned    PID0    : 1;
         unsigned    PID1    : 1;
         unsigned    PID2    : 1;
         unsigned    PID3    : 1;
-    };
+    }pidbits;
     struct {
         unsigned            : 2;
         unsigned    PID     : 4;    /* Packet Identifier */
-    };
+    }pidnibble;
     uint8_t            Val;
 } BD_STAT;                      /* Buffer Descriptor Status Register */
 
@@ -223,13 +223,13 @@ typedef union __BDT {
         struct {
             uint8_t CNT;
             BD_STAT     STAT __attribute__ ((packed));
-        };
+        }bdstat;
         struct {
             uint16_t        count: 10;  /* test */
             uint16_t        : 6;
             uint16_t        ADR; /* Buffer Address */
-        };
-    };
+        }bdaddress;
+    }bdt;
     uint32_t           Val;
     uint16_t            v[2];
 } BDT_ENTRY;
@@ -241,21 +241,21 @@ typedef union __USTAT {
         unsigned ping_pong         : 1;
         unsigned direction         : 1;
         unsigned endpoint_number   : 4;
-    };
+    }fields;
     uint8_t Val;
 } USTAT_FIELDS;
 
 /* Macros for fetching parameters from a USTAT_FIELDS variable. */
-#define USBHALGetLastEndpoint(stat)     stat.endpoint_number
-#define USBHALGetLastDirection(stat)    stat.direction
-#define USBHALGetLastPingPong(stat)     stat.ping_pong
+#define USBHALGetLastEndpoint(stat)     stat.fields.endpoint_number
+#define USBHALGetLastDirection(stat)    stat.fields.direction
+#define USBHALGetLastPingPong(stat)     stat.fields.ping_pong
 
 
 typedef union _POINTER {
     struct {
         uint8_t bLow;
         uint8_t bHigh;
-    };
+    }bytes;
     uint16_t _word;             /* bLow & bHigh */
     uint8_t * bRam;             /* Ram byte pointer: 2 bytes pointer pointing */
     /* to 1 byte of data */

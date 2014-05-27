@@ -1,4 +1,4 @@
-/*
+/* 
  * File:   spi.h
  * Author: ncabalos
  *

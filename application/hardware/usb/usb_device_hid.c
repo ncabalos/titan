@@ -154,17 +154,17 @@ extern void USB_DEVICE_HID_IDLE_RATE_CALLBACK(uint8_t reportId,
  *******************************************************************/
 void USBCheckHIDRequest(void)
 {
-    if(SetupPkt.Recipient != USB_SETUP_RECIPIENT_INTERFACE_BITFIELD) return;
+    if(SetupPkt.sdrRequestType.Recipient != USB_SETUP_RECIPIENT_INTERFACE_BITFIELD) return;
 
-    if(SetupPkt.bIntfID != HID_INTF_ID) return;
+    if(SetupPkt.sdrAlternate.bIntfID != HID_INTF_ID) return;
 
-    /*
+    /* 
      * There are two standard requests that hid.c may support.
      * 1. GET_DSC(DSC_HID,DSC_RPT,DSC_PHY);
      * 2. SET_DSC(DSC_HID,DSC_RPT,DSC_PHY);
      */
-    if(SetupPkt.bRequest == USB_REQUEST_GET_DESCRIPTOR) {
-        switch(SetupPkt.bDescriptorType) {
+    if(SetupPkt.sdr.bRequest == USB_REQUEST_GET_DESCRIPTOR) {
+        switch(SetupPkt.sdrDescriptor.bDescriptorType) {
             case DSC_HID: /* HID Descriptor */
                 if(USBActiveConfiguration == 1) {
                     USBEP0SendROMPtr(
@@ -202,11 +202,11 @@ void USBCheckHIDRequest(void)
         }/* end switch(SetupPkt.bDescriptorType) */
     }/* end if(SetupPkt.bRequest == GET_DSC) */
 
-    if(SetupPkt.RequestType != USB_SETUP_TYPE_CLASS_BITFIELD) {
+    if(SetupPkt.sdrRequestType.RequestType != USB_SETUP_TYPE_CLASS_BITFIELD) {
         return;
     }
 
-    switch(SetupPkt.bRequest) {
+    switch(SetupPkt.sdr.bRequest) {
         case GET_REPORT:
 #if defined USER_GET_REPORT_HANDLER
             USER_GET_REPORT_HANDLER();
