@@ -261,7 +261,8 @@ typedef union __attribute__ ((packed))
         uint16_t wValue; /* from table 9-2 of USB2.0 spec */
         uint16_t wIndex; /* from table 9-2 of USB2.0 spec */
         uint16_t wLength; /* from table 9-2 of USB2.0 spec */
-    }sdr;
+    }
+    sdr;
     struct __attribute__ ((packed)) {
         unsigned : 8;
         unsigned : 8;
@@ -289,7 +290,8 @@ typedef union __attribute__ ((packed))
                 uint8_t HB;
             } byte;
         } W_Length;
-    }sdrBytes;
+    }
+    sdrBytes;
     struct __attribute__ ((packed)) {
         unsigned Recipient: 5;  /* Device,Interface,Endpoint,Other */
         unsigned RequestType: 2; /* Standard,Class,Vendor,Reserved */
@@ -301,17 +303,20 @@ typedef union __attribute__ ((packed))
         unsigned : 8;
         unsigned : 8;
         unsigned : 8;
-    }sdrRequestType;
+    }
+    sdrRequestType;
     /* struct __attribute__ ((packed)) {*/
-        union __attribute__ ((packed)){                         /* offset   description */
-            /* ------   ------------------------ */
-            uint8_t bmRequestType;         /*   0      Bit-map of request type */
-            struct {
-                unsigned    recipient:  5;  /*          Recipient of the request */
-                unsigned    type:       2;  /*          Type of request */
-                unsigned    direction:  1;  /*          Direction of data X-fer */
-            }requestInfoRequestType;
-        } requestInfo;
+    union __attribute__ ((
+                                     packed)) {                        /* offset   description */
+        /* ------   ------------------------ */
+        uint8_t bmRequestType;         /*   0      Bit-map of request type */
+        struct {
+            unsigned    recipient:  5;  /*          Recipient of the request */
+            unsigned    type:       2;  /*          Type of request */
+            unsigned    direction:  1;  /*          Direction of data X-fer */
+        } requestInfoRequestType;
+    }
+    requestInfo;
     /* };*/
     struct __attribute__ ((packed)) {
         unsigned : 8;
@@ -321,7 +326,8 @@ typedef union __attribute__ ((packed))
         uint16_t wLangID;           /* Language ID */
         unsigned : 8;
         unsigned : 8;
-    }sdrDescriptor;
+    }
+    sdrDescriptor;
     struct __attribute__ ((packed)) {
         unsigned : 8;
         unsigned : 8;
@@ -331,7 +337,8 @@ typedef union __attribute__ ((packed))
         unsigned : 8;
         unsigned : 8;
         unsigned : 8;
-    }sdrAddress;
+    }
+    sdrAddress;
     struct __attribute__ ((packed)) {
         unsigned : 8;
         unsigned : 8;
@@ -341,7 +348,8 @@ typedef union __attribute__ ((packed))
         unsigned : 8;
         unsigned : 8;
         unsigned : 8;
-    }sdrConfiguration;
+    }
+    sdrConfiguration;
     struct __attribute__ ((packed)) {
         unsigned : 8;
         unsigned : 8;
@@ -351,7 +359,8 @@ typedef union __attribute__ ((packed))
         uint8_t bIntfID_H;         /* Must equal zero */
         unsigned : 8;
         unsigned : 8;
-    }sdrAlternate;
+    }
+    sdrAlternate;
     struct __attribute__ ((packed)) {
         unsigned : 8;
         unsigned : 8;
@@ -361,7 +370,8 @@ typedef union __attribute__ ((packed))
         uint8_t bEPID_H;           /* Must equal zero */
         unsigned : 8;
         unsigned : 8;
-    }sdrEPID;
+    }
+    sdrEPID;
     struct __attribute__ ((packed)) {
         unsigned : 8;
         unsigned : 8;
@@ -373,7 +383,8 @@ typedef union __attribute__ ((packed))
         unsigned : 8;
         unsigned : 8;
         unsigned : 8;
-    }sdrEPNumber;
+    }
+    sdrEPNumber;
     /** End: Standard Device Requests ******************************/
 }
 CTRL_TRF_SETUP, SETUP_PKT, *PSETUP_PKT;

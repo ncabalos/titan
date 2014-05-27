@@ -10,7 +10,7 @@
 #define USB_HAL_PULL_UP_D_MINUS 0x40    /* Pull D- line high */
 #define USB_HAL_PULL_DN_D_PLUS  0x20    /* Pull D+ line low */
 #define USB_HAL_PULL_DN_D_MINUS 0x10    /* Pull D- line low */
-/* 
+/*
  The following are defined for convenience:
  */
 #define USB_HAL_DEV_CONN_FULL_SPD       USB_HAL_PULL_UP_D_PLUS
@@ -23,7 +23,7 @@
 #define USB_VBUS_POWER_ON   3       /* Supply power to Vbus */
 #define USB_VBUS_POWER_OFF  4       /* Do not supply power to Vbus */
 
-/* 
+/*
  USBHALGetLastError Error Bits.
  */
 #define USBHAL_PID_ERR  0x00000001  /* Packet ID Error */
@@ -101,7 +101,7 @@
         a SET_ADDRESS setup request.
 
  *************************************************************************/
-/* 
+/*
  This routine is implemented as a macro to a lower-level level routine.
  */
 
@@ -139,7 +139,7 @@ void USBHALSetBusAddress( uint8_t addr );
 
  *************************************************************************/
 
-/* 
+/*
  This routine is implemented as a macro to a lower-level level routine.
  */
 #if defined(__18CXX) || defined(__XC8)
@@ -149,7 +149,7 @@ void USBHALControlUsbResistors( uint8_t flags );
 void USBHALControlUsbResistors( uint8_t flags );
 #endif
 
-/* 
+/*
  MCHP: Define a method to check for SE0 & a way to send a reset (SE0).
  */
 
@@ -300,7 +300,7 @@ void USBHALHandleBusEvent ( void );
         "un-stalls" the endpoint.
 
  *************************************************************************/
-/* 
+/*
  Note: This function is implemented as a macro, calling directly into
  an internal HAL routine.
  */
@@ -337,7 +337,7 @@ bool USBHALStallPipe( TRANSFER_FLAGS pipe );
         None
 
  *****************************************************************************/
-/* 
+/*
  Note: This function is implemented as a macro, calling directly into
  an internal HAL routine.
  */
@@ -371,7 +371,7 @@ bool USBHALUnstallPipe( TRANSFER_FLAGS pipe );
         None
  *************************************************************************/
 
-/* 
+/*
  Note: This function is implemented as a macro, calling directly into
  a HAL routine.
  */

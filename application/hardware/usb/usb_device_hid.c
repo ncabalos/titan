@@ -154,11 +154,12 @@ extern void USB_DEVICE_HID_IDLE_RATE_CALLBACK(uint8_t reportId,
  *******************************************************************/
 void USBCheckHIDRequest(void)
 {
-    if(SetupPkt.sdrRequestType.Recipient != USB_SETUP_RECIPIENT_INTERFACE_BITFIELD) return;
+    if(SetupPkt.sdrRequestType.Recipient != USB_SETUP_RECIPIENT_INTERFACE_BITFIELD)
+        return;
 
     if(SetupPkt.sdrAlternate.bIntfID != HID_INTF_ID) return;
 
-    /* 
+    /*
      * There are two standard requests that hid.c may support.
      * 1. GET_DSC(DSC_HID,DSC_RPT,DSC_PHY);
      * 2. SET_DSC(DSC_HID,DSC_RPT,DSC_PHY);

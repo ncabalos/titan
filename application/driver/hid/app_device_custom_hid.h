@@ -64,4 +64,6 @@ void APP_DeviceCustomHIDStart();
 * Output: None
 *
 ********************************************************************/
-void APP_DeviceCustomHIDTasks();
+#include "../../uckernel/uckernel.h"
+uckernel_event hid_task_event_queue[1];
+void hid_task(const uint16_t event, void * data);

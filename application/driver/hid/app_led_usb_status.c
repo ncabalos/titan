@@ -49,45 +49,37 @@ void APP_LEDUpdateUSBStatus(void)
 {
     static uint16_t ledCount = 0;
 
-    if(USBIsDeviceSuspended() == true)
-    {
+    if(USBIsDeviceSuspended() == true) {
         return;
     }
 
-    switch(USBGetDeviceState())
-    {
+    switch(USBGetDeviceState()) {
         case CONFIGURED_STATE:
+
             /* We are configured.  Blink fast.
              * On for 75ms, off for 75ms, then reset/repeat. */
-            if(ledCount == 1)
-            {
+            if(ledCount == 1) {
                 ;
-            }
-            else if(ledCount == 75)
-            {
+            } else if(ledCount == 75) {
                 ;
-            }
-            else if(ledCount > 150)
-            {
+            } else if(ledCount > 150) {
                 ledCount = 0;
             }
+
             break;
 
         default:
+
             /* We aren't configured yet, but we aren't suspended so let's blink with
              * a slow pulse. On for 50ms, then off for 950ms, then reset/repeat. */
-            if(ledCount == 1)
-            {
+            if(ledCount == 1) {
                 ;
-            }
-            else if(ledCount == 50)
-            {
+            } else if(ledCount == 50) {
                 ;
-            }
-            else if(ledCount > 950)
-            {
+            } else if(ledCount > 950) {
                 ledCount = 0;
             }
+
             break;
     }
 
