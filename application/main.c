@@ -11,6 +11,9 @@
 #include "driver/hid/app_device_custom_hid.h"
 #include "driver/hid/app_led_usb_status.h"
 
+#include "driver/hid/app_device_custom_hid.h"
+#include "driver/hid/app_led_usb_status.h"
+
 #include "queue.h"
 #include "uckernel/uckernel.h"
 
