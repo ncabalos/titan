@@ -5,8 +5,8 @@
 #include "p24Fxxxx.h"
 #include "hardware_config.h"
 
-#include "hardware/usb/usb.h"
-#include "hardware/usb/usb_device_hid.h"
+#include "usb/usb.h"
+#include "usb/usb_device_hid.h"
 
 #include "driver/hid/app_device_custom_hid.h"
 #include "driver/hid/app_led_usb_status.h"

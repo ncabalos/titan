@@ -42,7 +42,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 *******************************************************************************/
 
 #include <stdint.h>
-#include "../../hardware/usb/usb_device.h"
+#include "../../usb/usb_device.h"
 
 
 void APP_LEDUpdateUSBStatus(void)
